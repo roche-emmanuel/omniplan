@@ -2,3 +2,4 @@
 08/30/15-16:23:07: Working on issue #1: Added some update on the display of the posts.
 08/30/15-16:24:18: Added filter on upvotes to order the posts.
 08/30/15-16:28:13: Working on issue #1: Added simple button to post a new post.
+08/30/15-16:30:52: Added form to porvide title when posting new post.
