@@ -12,3 +12,4 @@
 08/30/15-17:30:23: Working on issue #1: Added support to add comments on post.
 08/30/15-17:39:34: Working on issue #1: Added initial express project structure.
 08/30/15-17:44:08: Working on issue #1: Installed node modules and additional mongoose module.
+08/30/15-17:52:55: Working on issue #1: Moved the angular frontend into node.js project.
