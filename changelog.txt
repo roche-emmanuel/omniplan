@@ -11,4 +11,4 @@
 08/30/15-17:23:27: Working on issue #1: Added support for display of post comments.
 08/30/15-17:30:23: Working on issue #1: Added support to add comments on post.
 08/30/15-17:39:34: Working on issue #1: Added initial express project structure.
-08/30/15-17:43:07: Working on issue #1: Installed
+08/30/15-17:44:08: Working on issue #1: Installed node modules and additional mongoose module.
