@@ -7,3 +7,4 @@
 08/30/15-16:41:39: Working on issue #1: Added support for display of links.
 08/30/15-16:55:30: Working on issue #1: Added some styles.
 08/30/15-17:05:58: Working on issue #1: Added service for posts.
+08/30/15-17:13:54: Working on issue #1: Added support for ui-router usage.
