@@ -1,1 +1,2 @@
 08/30/15-16:17:37: Working on issue #1 Building initial frontend app.
+08/30/15-16:23:07: Working on issue #1: Added some update on the display of the posts.
