@@ -4,3 +4,4 @@
 08/30/15-16:28:13: Working on issue #1: Added simple button to post a new post.
 08/30/15-16:30:52: Added form to porvide title when posting new post.
 08/30/15-16:34:06: Working on issue #1: Added support for upvote.
+08/30/15-16:41:39: Working on issue #1: Added support for display of links.
