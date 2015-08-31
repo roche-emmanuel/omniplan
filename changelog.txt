@@ -20,3 +20,4 @@
 08/31/15-19:08:40: Working on issue #1: Added support for comment routes.
 08/31/15-20:07:42: Working on issue #1: Added populate() to retrieve all the comments for a given post.
 08/31/15-21:22:43: Working on issue #1: Added promise to load all posts.
+08/31/15-21:45:06: Fixed issue #1: wiring frontend completely for simple post app template.
