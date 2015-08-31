@@ -23,3 +23,4 @@
 08/31/15-21:45:06: Fixed issue #1: wiring frontend completely for simple post app template.
 08/31/15-22:10:24: Working on issue #2: Added User schema for mongoose.
 08/31/15-22:37:25: Working on issue #2: Added backend support for authentification.
+08/31/15-23:12:33: Fixed issue #2: Added complete authentification support for template post app.
