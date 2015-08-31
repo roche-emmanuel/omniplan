@@ -14,3 +14,5 @@
 08/30/15-17:44:08: Working on issue #1: Installed node modules and additional mongoose module.
 08/30/15-17:52:55: Working on issue #1: Moved the angular frontend into node.js project.
 08/30/15-18:23:57: Working on issue #2: initializing mongoDB on windows.
+08/31/15-18:18:45: Working on issue #1: Adding initial routes.
+08/31/15-18:21:19: Working on issue #1: Adding initial routes.

@@ -4,3 +4,6 @@ node_modules/
 # ignore mongoDb logs:
 *mongo.log
 *mongo.log.*
+*npm-debug.log
+*diaglog.*
+*mongod.lock
