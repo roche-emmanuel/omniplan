@@ -16,3 +16,4 @@
 08/30/15-18:23:57: Working on issue #2: initializing mongoDB on windows.
 08/31/15-18:18:45: Working on issue #1: Adding initial routes.
 08/31/15-18:21:19: Working on issue #1: Adding initial routes.
+08/31/15-18:25:25: Working on issue #1: testing commit of mongodb files.
