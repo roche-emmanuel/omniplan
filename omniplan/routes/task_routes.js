@@ -38,14 +38,26 @@ var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
 // });
 
 
+// Route to retrieve the list of all tasks
 router.get('/', function(req, res, next) {
-  // console.log("Should handle request to get all tasks here.");
   Task.find(function(err, tasks){
     if(err){ return next(err); }
 
     res.json(tasks);
   });
 });
+
+// Route to create a new task by posting data:
+router.post('/', function(req, res, next) {
+  var task = new Task(req.body);
+
+  task.save(function(err, task){
+    if(err){ return next(err); }
+
+    res.json(task);
+  });
+});
+
 
 // router.get('/posts/:post', function(req, res, next) {
 //   req.post.populate('comments', function(err, post) {
@@ -86,17 +98,6 @@ router.get('/', function(req, res, next) {
 
 //       res.json(comment);
 //     });
-//   });
-// });
-
-// router.post('/posts', auth, function(req, res, next) {
-//   var post = new Post(req.body);
-//   post.author = req.payload.username;
-
-//   post.save(function(err, post){
-//     if(err){ return next(err); }
-
-//     res.json(post);
 //   });
 // });
 
