@@ -46,41 +46,46 @@
     </div>
 
     <script type="text/ng-template" id="/tasks.html">
-      <div class="page-header">
-        <h1>Next tasks</h1>
+      <div ng-hide="isLoggedIn()">
+        <h3>Please <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> to access the tasks.</h3>
       </div>
 
-      <ul class="list-group">
-        <li ng-repeat="task in tasks" class="list-group-item">
-          <h4>{{task.title}}</h4>
-          <div>{{task.description=="" ? "No description" : task.description}}</div>
-        </li>
-      </ul>
+      <div ng-show="isLoggedIn()">
+        <div class="page-header">
+          <h1>Next tasks</h1>
+        </div>
 
-      <form ng-submit="addTask()">
-        <h3>Add a new task</h3>
+        <ul class="list-group">
+          <li ng-repeat="task in tasks" class="list-group-item">
+            <h4>{{task.title}}</h4>
+            <div>{{task.user}}{{task.description=="" ? " - No description" : " - "+task.description}}</div>
+          </li>
+        </ul>
 
-        <div class="input-group" style="margin-top:30px;">
-          <span class="input-group-addon" id="title-addon">Title</span>
-          <input type="text"
+        <form ng-submit="addTask()">
+          <h3>Add a new task</h3>
+
+          <div class="input-group" style="margin-top:30px;">
+            <span class="input-group-addon" id="title-addon">Title</span>
+            <input type="text"
+              class="form-control"
+              placeholder="Title"
+              aria-describedby="title-addon"
+              ng-model="title"></input>
+          </div>
+
+          <div class="input-group" style="margin-top:30px;">
+            <span class="input-group-addon" id="desc-addon">Desc</span>
+            <input type="text"
             class="form-control"
-            placeholder="Title"
-            aria-describedby="title-addon"
-            ng-model="title"></input>
-        </div>
+            placeholder="Description"
+            aria-describedby="desc-addon"
+            ng-model="description"></input>
+          </div>
 
-        <div class="input-group" style="margin-top:30px;">
-          <span class="input-group-addon" id="desc-addon">Desc</span>
-          <input type="text"
-          class="form-control"
-          placeholder="Description"
-          aria-describedby="desc-addon"
-          ng-model="description"></input>
-        </div>
-
-        <button type="submit" class="btn btn-primary" style="margin-top:30px;">Add</button>
-      </form>
-
+          <button type="submit" class="btn btn-primary" style="margin-top:30px;">Add</button>
+        </form>
+      </div>
     </script>
 
     <script type="text/ng-template" id="/done.html">

@@ -7,6 +7,8 @@ var jwt = require('express-jwt');
 
 var mongoose = require('mongoose');
 var Task = mongoose.model('Task');
+var User = mongoose.model('User');
+
 // var Post = mongoose.model('Post');
 // var Comment = mongoose.model('Comment');
 // var User = mongoose.model('User');
@@ -48,14 +50,23 @@ router.get('/', function(req, res, next) {
 });
 
 // Route to create a new task by posting data:
-router.post('/', function(req, res, next) {
+router.post('/', auth, function(req, res, next) {
   var task = new Task(req.body);
 
-  task.save(function(err, task){
-    if(err){ return next(err); }
+  // Retrieve the user object by name:
+  var uname = req.payload.username;
+  User.findOne({username: uname}, function(err,user){
+  	if(err) { return next(err); }
+  	console.log("Found user with name="+uname+", id="+user._id);
 
-    res.json(task);
-  });
+	  task.user = user.username;
+
+	  task.save(function(err, task){
+	    if(err){ return next(err); }
+
+	    res.json(task);
+	  });  	
+  })
 });
 
 

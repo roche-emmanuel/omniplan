@@ -28,3 +28,4 @@
 09/03/15-22:58:19: Working on issue #4 : added support to add a task.
 09/04/15-09:01:32: Working on issue #4: Added proper initial layout for tasks on next task page.
 09/04/15-13:43:13: Working on issue #4: Added support to add a new task from the web interface.
+09/04/15-17:54:21: Fixed issue #4: added authorization handling when creating a new task.

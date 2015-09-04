@@ -126,7 +126,9 @@ app.factory('tasks', ['$http','auth',function($http,auth){
   };
 
   o.getAll = function() {
-    return $http.get('/tasks').success(function(data){
+    return $http.get('/tasks',null,{
+      headers: {Authorization: 'Bearer '+auth.getToken()}
+    }).success(function(data){
       angular.copy(data, o.tasks);
     });
   };
