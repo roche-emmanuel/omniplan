@@ -16,6 +16,26 @@ function($stateProvider, $urlRouterProvider) {
         }]
       }
     })
+    .state('tasks', {
+      url: '/tasks',
+      templateUrl: '/tasks.html',
+      controller: 'TasksCtrl',
+      resolve: {
+        postPromise: ['tasks', function(tasks){
+          return tasks.getAll();
+        }]
+      }
+    })
+    .state('done', {
+      url: '/done',
+      templateUrl: '/done.html',
+      controller: 'TasksCtrl',
+      // resolve: {
+      //   postPromise: ['tasks', function(tasks){
+      //     return tasks.getAll();
+      //   }]
+      // }
+    })
     .state('posts', {
       url: '/posts/{id}',
       templateUrl: '/posts.html',
@@ -99,6 +119,29 @@ app.factory('posts', ['$http','auth',function($http,auth){
 
   return o;
 }]);
+
+app.factory('tasks', ['$http','auth',function($http,auth){
+  var o = {
+    tasks: []
+  };
+
+  o.getAll = function() {
+    return $http.get('/tasks').success(function(data){
+      angular.copy(data, o.tasks);
+    });
+  };
+
+  o.create = function(task) {
+    return $http.post('/tasks', task, {
+      headers: {Authorization: 'Bearer '+auth.getToken()}
+    }).success(function(data){
+      o.tasks.push(data);
+    });
+  };
+
+  return o;
+}]);
+
 
 app.factory('auth', ['$http', '$window', function($http, $window){
   var auth = {};
@@ -189,6 +232,13 @@ function($scope,posts,auth){
     posts.upvote(post);
     // post.upvotes += 1;
   };
+}]);
+
+
+app.controller('TasksCtrl', [
+'$scope','tasks','auth',
+function($scope,tasks,auth){
+  $scope.tasks = tasks.tasks;
 }]);
 
 app.controller('PostsCtrl', [

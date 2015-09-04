@@ -26,3 +26,4 @@
 08/31/15-23:12:33: Fixed issue #2: Added complete authentification support for template post app.
 09/03/15-21:04:38: Working on issue #4: Adding the initial schema for tasks in database.
 09/03/15-22:58:19: Working on issue #4 : added support to add a task.
+09/04/15-09:01:32: Working on issue #4: Added proper initial layout for tasks on next task page.
