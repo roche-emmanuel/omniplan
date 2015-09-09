@@ -126,7 +126,7 @@ app.factory('tasks', ['$http','auth',function($http,auth){
   };
 
   o.getAll = function() {
-    return $http.get('/tasks',null,{
+    return $http.get('/tasks',{
       headers: {Authorization: 'Bearer '+auth.getToken()}
     }).success(function(data){
       angular.copy(data, o.tasks);
@@ -138,6 +138,25 @@ app.factory('tasks', ['$http','auth',function($http,auth){
       headers: {Authorization: 'Bearer '+auth.getToken()}
     }).success(function(data){
       o.tasks.push(data);
+    });
+  };
+
+  o.destroy = function(task) {
+    // console.log("Asking for delete of task with id "+task._id);
+    // console.log("Using authorization token: "+auth.getToken());
+
+    return $http.delete('/tasks/' + task._id, {
+      headers: {Authorization: 'Bearer '+auth.getToken()}
+    }).success(function(data){
+      for(var i = 0; i < o.tasks.length; i++) {
+        var obj = o.tasks[i];
+
+        if(obj._id == data._id) {
+          // console.log("Removing local task with id "+data._id);
+          o.tasks.splice(i, 1);
+          return;
+        }
+      }
     });
   };
 
@@ -253,7 +272,12 @@ function($scope,tasks,auth){
 
     $scope.title = '';
     $scope.description = '';
-  };  
+  };
+
+  $scope.deleteTask = function(task) {
+    // console.log("Should delete task '"+task.title+"'");
+    tasks.destroy(task);
+  };
 }]);
 
 app.controller('PostsCtrl', [

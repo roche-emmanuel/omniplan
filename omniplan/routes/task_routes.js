@@ -15,17 +15,18 @@ var User = mongoose.model('User');
 
 var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
 
-// router.param('post', function(req, res, next, id) {
-//   var query = Post.findById(id);
+router.param('task', function(req, res, next, id) {
+  console.log("Retrieving task with id="+id)
+  var query = Task.findById(id);
 
-//   query.exec(function (err, post){
-//     if (err) { return next(err); }
-//     if (!post) { return next(new Error('can\'t find post')); }
+  query.exec(function (err, task){
+    if (err) { return next(err); }
+    if (!task) { return next(new Error('can\'t find task')); }
 
-//     req.post = post;
-//     return next();
-//   });
-// });
+    req.task = task;
+    return next();
+  });
+});
 
 // router.param('comment', function(req, res, next, id) {
 //   var query = Comment.findById(id);
@@ -57,7 +58,7 @@ router.post('/', auth, function(req, res, next) {
   var uname = req.payload.username;
   User.findOne({username: uname}, function(err,user){
   	if(err) { return next(err); }
-  	console.log("Found user with name="+uname+", id="+user._id);
+  	// console.log("Found user with name="+uname+", id="+user._id);
 
 	  task.user = user.username;
 
@@ -67,6 +68,17 @@ router.post('/', auth, function(req, res, next) {
 	    res.json(task);
 	  });  	
   })
+});
+
+
+router.delete('/:task', auth, function(req, res, next) {
+  // console.log("Received request to delete task="+req.task._id);
+  req.task.remove(function(err,task) {
+    if (err) { return next(err); }
+
+    // return the task that was just removed:
+    res.json(req.task); 
+  });
 });
 
 
