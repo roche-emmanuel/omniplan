@@ -30,3 +30,4 @@
 09/04/15-13:43:13: Working on issue #4: Added support to add a new task from the web interface.
 09/04/15-17:54:21: Fixed issue #4: added authorization handling when creating a new task.
 09/09/15-22:11:22: Working on issue #12: removing mongodb database from repository.
+09/09/15-22:15:21: Ignoring mongodb database on GIT.
