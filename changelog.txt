@@ -31,3 +31,4 @@
 09/04/15-17:54:21: Fixed issue #4: added authorization handling when creating a new task.
 09/09/15-22:11:22: Working on issue #12: removing mongodb database from repository.
 09/09/15-22:15:21: Ignoring mongodb database on GIT.
+09/10/15-10:00:28: Working on issue #5: Adding support to change the state of a task.

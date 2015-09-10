@@ -16,7 +16,7 @@ var User = mongoose.model('User');
 var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
 
 router.param('task', function(req, res, next, id) {
-  console.log("Retrieving task with id="+id)
+  console.log("Retrieving task with id="+id);
   var query = Task.findById(id);
 
   query.exec(function (err, task){
@@ -26,6 +26,12 @@ router.param('task', function(req, res, next, id) {
     req.task = task;
     return next();
   });
+});
+
+router.param('state', function(req, res, next, id) {
+  console.log("Retrieving state="+id);
+  req.state = id;
+  return next();
 });
 
 // router.param('comment', function(req, res, next, id) {
@@ -41,9 +47,9 @@ router.param('task', function(req, res, next, id) {
 // });
 
 
-// Route to retrieve the list of all tasks
-router.get('/', function(req, res, next) {
-  Task.find(function(err, tasks){
+// Route to retrieve the list of all opened tasks
+router.get('/state/:state', auth, function(req, res, next) {
+  Task.find({state: req.state},function(err, tasks){
     if(err){ return next(err); }
 
     res.json(tasks);
@@ -81,17 +87,17 @@ router.delete('/:task', auth, function(req, res, next) {
   });
 });
 
+router.put('/tasks/:task/state/:state', auth, function(req, res, next) {
+  console.log("Should set state of task "+req.task._id+" to "+req.state)
+  req.task.setState(req.state,function(err, task){
+    if (err) { return next(err); }
+
+    res.json(task);
+  });
+});
 
 // router.get('/posts/:post', function(req, res, next) {
 //   req.post.populate('comments', function(err, post) {
-//     if (err) { return next(err); }
-
-//     res.json(post);
-//   });
-// });
-
-// router.put('/posts/:post/upvote', auth, function(req, res, next) {
-//   req.post.upvote(function(err, post){
 //     if (err) { return next(err); }
 
 //     res.json(post);
