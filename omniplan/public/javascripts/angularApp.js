@@ -18,7 +18,7 @@ function($stateProvider, $urlRouterProvider) {
     })
     .state('tasks', {
       url: '/tasks',
-      templateUrl: '/tasks.html',
+      templateUrl: '/partials/tasks.html',
       controller: 'TasksCtrl',
       resolve: {
         postPromise: ['tasks', function(tasks){

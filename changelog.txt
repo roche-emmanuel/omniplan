@@ -33,3 +33,4 @@
 09/09/15-22:15:21: Ignoring mongodb database on GIT.
 09/10/15-10:00:28: Working on issue #5: Adding support to change the state of a task.
 09/10/15-10:56:40: Working on issue #5: added support to open/close a task.
+09/10/15-14:29:23: Adding partials folder.

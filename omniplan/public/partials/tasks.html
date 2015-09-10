@@ -1,0 +1,51 @@
+<div ng-hide="isLoggedIn()">
+  <h3>Please <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> to access the tasks.</h3>
+</div>
+
+<div ng-show="isLoggedIn()">
+  <div class="page-header">
+    <h1>Next tasks</h1>
+  </div>
+
+  <ul class="list-group">
+    <li ng-repeat="task in tasks" class="list-group-item">
+      <div class="row">
+        <div class="col-md-8">
+          <h4>{{task.title}}</h4>
+        </div>
+        <div class="col-md-4 text-right">
+          <button class="btn btn-success .navbar-right"
+            ng-click="closeTask(task)">Close</button>
+          <button class="btn btn-danger .navbar-right" 
+            ng-click="deleteTask(task)"><i class="fa fa-trash-o fa-lg"></i> Delete</button>
+        </div>
+      </div>
+
+      <div>{{task.user}}{{task.description=="" ? " - No description" : " - "+task.description}}</div>
+    </li>
+  </ul>
+
+  <form ng-submit="addTask()">
+    <h3>Add a new task</h3>
+
+    <div class="input-group" style="margin-top:30px;">
+      <span class="input-group-addon" id="title-addon">Title</span>
+      <input type="text"
+        class="form-control"
+        placeholder="Title"
+        aria-describedby="title-addon"
+        ng-model="title"></input>
+    </div>
+
+    <div class="input-group" style="margin-top:30px;">
+      <span class="input-group-addon" id="desc-addon">Desc</span>
+      <input type="text"
+      class="form-control"
+      placeholder="Description"
+      aria-describedby="desc-addon"
+      ng-model="description"></input>
+    </div>
+
+    <button type="submit" class="btn btn-primary" style="margin-top:30px;">Add</button>
+  </form>
+</div>
