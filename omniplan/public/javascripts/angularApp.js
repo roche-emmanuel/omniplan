@@ -1,74 +1,34 @@
-var app = angular.module('omniPlan', ['ui.router']);
+var app = angular.module('omniPlan', ['ui.router','opRoutes','opAuth']);
 
-app.config([
-'$stateProvider',
-'$urlRouterProvider',
-function($stateProvider, $urlRouterProvider) {
+app.controller('TasksCtrl', [
+'$scope','tasks','auth',
+function($scope,tasks,auth){
+  $scope.tasks = tasks.tasks;
+  $scope.isLoggedIn = auth.isLoggedIn;
 
-  $stateProvider
-    .state('home', {
-      url: '/home',
-      templateUrl: '/partials/home.html',
-      controller: 'MainCtrl',
-      resolve: {
-        postPromise: ['posts', function(posts){
-          return posts.getAll();
-        }]
-      }
-    })
-    .state('tasks', {
-      url: '/tasks',
-      templateUrl: '/partials/tasks.html',
-      controller: 'TasksCtrl',
-      resolve: {
-        postPromise: ['tasks', function(tasks){
-          return tasks.getAll();
-        }]
-      }
-    })
-    .state('done', {
-      url: '/done',
-      templateUrl: '/partials/done.html',
-      controller: 'DoneCtrl',
-      resolve: {
-        postPromise: ['tasks', function(tasks){
-          return tasks.getAllClosed();
-        }]
-      }
-    })
-    .state('posts', {
-      url: '/posts/{id}',
-      templateUrl: '/partials/posts.html',
-      controller: 'PostsCtrl',
-      resolve: {
-        post: ['$stateParams', 'posts', function($stateParams, posts) {
-          return posts.get($stateParams.id);
-        }]
-      }
-    })
-    .state('login', {
-      url: '/login',
-      templateUrl: '/partials/login.html',
-      controller: 'AuthCtrl',
-      onEnter: ['$state', 'auth', function($state, auth){
-        if(auth.isLoggedIn()){
-          $state.go('home');
-        }
-      }]
-    })
-    .state('register', {
-      url: '/register',
-      templateUrl: '/partials/register.html',
-      controller: 'AuthCtrl',
-      onEnter: ['$state', 'auth', function($state, auth){
-        if(auth.isLoggedIn()){
-          $state.go('home');
-        }
-      }]
+  $scope.addTask = function(){
+    if(!$scope.title || $scope.title === '') { return; }
+    
+    tasks.create({
+      title: $scope.title,
+      description: $scope.description,
     });
 
-  $urlRouterProvider.otherwise('home');
+    $scope.title = '';
+    $scope.description = '';
+  };
+
+  $scope.deleteTask = function(task) {
+    // console.log("Should delete task '"+task.title+"'");
+    tasks.destroy(task);
+  };
+
+  $scope.closeTask = function(task) {
+    // console.log("Should delete task '"+task.title+"'");
+    tasks.setState(task,"closed");
+  }; 
 }]);
+
 
 app.factory('posts', ['$http','auth',function($http,auth){
   var o = {
@@ -200,58 +160,6 @@ app.factory('tasks', ['$http','auth',function($http,auth){
   return o;
 }]);
 
-
-app.factory('auth', ['$http', '$window', function($http, $window){
-  var auth = {};
-
-  auth.saveToken = function (token){
-    $window.localStorage['omniplan-token'] = token;
-  };
-
-  auth.getToken = function (){
-    return $window.localStorage['omniplan-token'];
-  };
-
-  auth.isLoggedIn = function(){
-    var token = auth.getToken();
-
-    if(token){
-      var payload = JSON.parse($window.atob(token.split('.')[1]));
-
-      return payload.exp > Date.now() / 1000;
-    } else {
-      return false;
-    }
-  };
-
-  auth.currentUser = function(){
-    if(auth.isLoggedIn()){
-      var token = auth.getToken();
-      var payload = JSON.parse($window.atob(token.split('.')[1]));
-
-      return payload.username;
-    }
-  };
-
-  auth.register = function(user){
-    return $http.post('/register', user).success(function(data){
-      auth.saveToken(data.token);
-    });
-  };
-
-  auth.logIn = function(user){
-    return $http.post('/login', user).success(function(data){
-      auth.saveToken(data.token);
-    });
-  };
-
-  auth.logOut = function(){
-    $window.localStorage.removeItem('omniplan-token');
-  };
-
-  return auth;
-}]);
-
 app.controller('MainCtrl', [
 '$scope','posts','auth',
 function($scope,posts,auth){
@@ -290,36 +198,6 @@ function($scope,posts,auth){
     posts.upvote(post);
     // post.upvotes += 1;
   };
-}]);
-
-
-app.controller('TasksCtrl', [
-'$scope','tasks','auth',
-function($scope,tasks,auth){
-  $scope.tasks = tasks.tasks;
-  $scope.isLoggedIn = auth.isLoggedIn;
-
-  $scope.addTask = function(){
-    if(!$scope.title || $scope.title === '') { return; }
-    
-    tasks.create({
-      title: $scope.title,
-      description: $scope.description,
-    });
-
-    $scope.title = '';
-    $scope.description = '';
-  };
-
-  $scope.deleteTask = function(task) {
-    // console.log("Should delete task '"+task.title+"'");
-    tasks.destroy(task);
-  };
-
-  $scope.closeTask = function(task) {
-    // console.log("Should delete task '"+task.title+"'");
-    tasks.setState(task,"closed");
-  }; 
 }]);
 
 app.controller('DoneCtrl', [
