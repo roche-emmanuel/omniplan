@@ -1,34 +1,4 @@
-var app = angular.module('omniPlan', ['ui.router','opRoutes','opAuth','opTaskFactory']);
-
-app.controller('TasksCtrl', [
-'$scope','tasks','auth',
-function($scope,tasks,auth){
-  $scope.tasks = tasks.tasks;
-  $scope.isLoggedIn = auth.isLoggedIn;
-
-  $scope.addTask = function(){
-    if(!$scope.title || $scope.title === '') { return; }
-    
-    tasks.create({
-      title: $scope.title,
-      description: $scope.description,
-    });
-
-    $scope.title = '';
-    $scope.description = '';
-  };
-
-  $scope.deleteTask = function(task) {
-    // console.log("Should delete task '"+task.title+"'");
-    tasks.destroy(task);
-  };
-
-  $scope.closeTask = function(task) {
-    // console.log("Should delete task '"+task.title+"'");
-    tasks.setState(task,"closed");
-  }; 
-}]);
-
+var app = angular.module('omniPlan', ['ui.router','opRoutes','opAuthFactory','TaskFactory','TaskController']);
 
 app.factory('posts', ['$http','auth',function($http,auth){
   var o = {

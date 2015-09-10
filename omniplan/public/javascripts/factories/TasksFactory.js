@@ -1,4 +1,4 @@
-angular.module('opTaskFactory', [])
+angular.module('TaskFactory', [])
 .factory('tasks', ['$http','auth',function($http,auth){
   var o = {
     tasks: [],

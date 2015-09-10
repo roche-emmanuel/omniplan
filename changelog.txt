@@ -39,3 +39,4 @@
 09/10/15-14:51:07: Using ui-sref instead of href in navbar.
 09/10/15-15:31:12: Separating angular javascript into multiple modules.
 09/10/15-15:34:55: Adding task factory script module.
+09/10/15-21:47:54: Working on issue #13: Adding initial support for timer on tasks.

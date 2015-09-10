@@ -1,4 +1,4 @@
-angular.module('opAuth', [])
+angular.module('opAuthFactory', [])
 .factory('auth', ['$http', '$window', function($http, $window){
   var auth = {};
 

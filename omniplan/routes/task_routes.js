@@ -88,13 +88,32 @@ router.delete('/:task', auth, function(req, res, next) {
 });
 
 router.put('/:task/state/:state', auth, function(req, res, next) {
-  console.log("Should set state of task "+req.task._id+" to "+req.state)
+  // console.log("Should set state of task "+req.task._id+" to "+req.state)
   req.task.setState(req.state,function(err, task){
     if (err) { return next(err); }
 
     res.json(task);
   });
 });
+
+router.put('/:task/start', auth, function(req, res, next) {
+  console.log("Should start timer for task "+req.task._id+" with mult: "+req.body.multiplier);
+  req.task.startTimer(req.body.multiplier,function(err, task){
+    if (err) { return next(err); }
+
+    res.json(task);
+  });
+});
+
+router.put('/:task/stop', auth, function(req, res, next) {
+  console.log("Should stop timer for task "+req.task._id);
+  req.task.stopTimer(function(err, task){
+    if (err) { return next(err); }
+
+    res.json(task);
+  });
+});
+
 
 // router.get('/posts/:post', function(req, res, next) {
 //   req.post.populate('comments', function(err, post) {
