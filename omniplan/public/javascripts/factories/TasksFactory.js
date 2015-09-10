@@ -76,5 +76,31 @@ angular.module('TaskFactory', [])
       });
   };
 
+  o.startTimer = function(task,multiplier) {
+    console.log("Should start the task here.");
+    var body = {
+      multiplier: multiplier,
+    };
+
+    return $http.put('/tasks/' + task._id + '/start', body, {
+      headers: {Authorization: 'Bearer '+auth.getToken()}
+    }).success(function(data){
+      task.running = data.running;
+      task.startTime = data.startTime;  // TODO: we might need an offset here ?
+      console.log("Currenting running state: "+ task.running);
+    });    
+  };
+
+  o.stopTimer = function(task) {
+    console.log("Should stop the task here.");
+    return $http.put('/tasks/' + task._id + '/stop', null, {
+      headers: {Authorization: 'Bearer '+auth.getToken()}
+    }).success(function(data){
+      task.running = data.running;
+      task.startTime = data.startTime;
+      console.log("Currenting running state: "+ task.running);
+    });    
+  };
+
   return o;
 }]);

@@ -43,14 +43,18 @@ TaskSchema.methods.startTimer = function(mult,cb) {
 
 // Method used to stop working on a task:
 TaskSchema.methods.stopTimer = function(cb) {
-	if(!this.running) {
+	if(this.running == false) {
 		return; // nothing to change.
 	}
 
-	console.assert(this.startTime>0);
+	if(this.startTime<=0) {
+		console.error("Invalid startTime value.");
+	}
 
 	// set the current start time:
 	this.running = false;
+
+	var that = this;
 
 	// Create a new session from the previous info:
 	var session = new TaskSession({
@@ -60,11 +64,15 @@ TaskSchema.methods.stopTimer = function(cb) {
 		task: this,
 	});
 
+	console.log("Trying to save session...")
   session.save(function(err, session){
     if(err){ return cb(err,null); }
 
-    this.sessions.push(session);
-    this.save(cb);
+    var dur = (session.stopTime - session.startTime)/1000.0;
+    console.log("Session duration: "+dur+" seconds.");
+
+    that.sessions.push(session);
+    that.save(cb);
   });
 };
 

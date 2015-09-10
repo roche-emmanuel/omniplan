@@ -25,5 +25,20 @@ function($scope,tasks,auth){
   $scope.closeTask = function(task) {
     // console.log("Should delete task '"+task.title+"'");
     tasks.setState(task,"closed");
-  }; 
+  };
+
+  $scope.startTask = function(task) {
+    // console.log("Should delete task '"+task.title+"'");
+    tasks.startTimer(task,1.0);
+  };   
+
+  $scope.stopTask = function(task) {
+    // console.log("Should delete task '"+task.title+"'");
+    tasks.stopTimer(task);
+  };
+
+  $scope.isRunning = function(task) {
+  	return task.running;
+  };
+
 }]);
