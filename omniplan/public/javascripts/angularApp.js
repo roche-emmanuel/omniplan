@@ -38,7 +38,7 @@ function($stateProvider, $urlRouterProvider) {
     })
     .state('posts', {
       url: '/posts/{id}',
-      templateUrl: '/posts.html',
+      templateUrl: '/partials/posts.html',
       controller: 'PostsCtrl',
       resolve: {
         post: ['$stateParams', 'posts', function($stateParams, posts) {
@@ -48,7 +48,7 @@ function($stateProvider, $urlRouterProvider) {
     })
     .state('login', {
       url: '/login',
-      templateUrl: '/login.html',
+      templateUrl: '/partials/login.html',
       controller: 'AuthCtrl',
       onEnter: ['$state', 'auth', function($state, auth){
         if(auth.isLoggedIn()){
@@ -58,7 +58,7 @@ function($stateProvider, $urlRouterProvider) {
     })
     .state('register', {
       url: '/register',
-      templateUrl: '/register.html',
+      templateUrl: '/partials/register.html',
       controller: 'AuthCtrl',
       onEnter: ['$state', 'auth', function($state, auth){
         if(auth.isLoggedIn()){

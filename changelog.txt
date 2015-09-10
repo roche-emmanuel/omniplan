@@ -35,3 +35,4 @@
 09/10/15-10:56:40: Working on issue #5: added support to open/close a task.
 09/10/15-14:29:23: Adding partials folder.
 09/10/15-14:34:34: Added partials for done and home pages.
+09/10/15-14:42:05: Added more partials implementation.
