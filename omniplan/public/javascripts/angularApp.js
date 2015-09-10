@@ -29,12 +29,12 @@ function($stateProvider, $urlRouterProvider) {
     .state('done', {
       url: '/done',
       templateUrl: '/done.html',
-      controller: 'TasksCtrl',
-      // resolve: {
-      //   postPromise: ['tasks', function(tasks){
-      //     return tasks.getAll();
-      //   }]
-      // }
+      controller: 'DoneCtrl',
+      resolve: {
+        postPromise: ['tasks', function(tasks){
+          return tasks.getAllClosed();
+        }]
+      }
     })
     .state('posts', {
       url: '/posts/{id}',
@@ -122,7 +122,20 @@ app.factory('posts', ['$http','auth',function($http,auth){
 
 app.factory('tasks', ['$http','auth',function($http,auth){
   var o = {
-    tasks: []
+    tasks: [],
+    closed_tasks: []
+  };
+
+  var removeById = function(array,id) {
+    for(var i = 0; i < array.length; i++) {
+      var obj = array[i];
+
+      if(obj._id == id) {
+        // console.log("Removing local task with id "+data._id);
+        array.splice(i, 1);
+        return;
+      }
+    }
   };
 
   o.getAll = function() {
@@ -130,6 +143,14 @@ app.factory('tasks', ['$http','auth',function($http,auth){
       headers: {Authorization: 'Bearer '+auth.getToken()}
     }).success(function(data){
       angular.copy(data, o.tasks);
+    });
+  };
+
+  o.getAllClosed = function() {
+    return $http.get('/tasks/state/closed',{
+      headers: {Authorization: 'Bearer '+auth.getToken()}
+    }).success(function(data){
+      angular.copy(data, o.closed_tasks);
     });
   };
 
@@ -141,6 +162,7 @@ app.factory('tasks', ['$http','auth',function($http,auth){
     });
   };
 
+
   o.destroy = function(task) {
     // console.log("Asking for delete of task with id "+task._id);
     // console.log("Using authorization token: "+auth.getToken());
@@ -148,16 +170,31 @@ app.factory('tasks', ['$http','auth',function($http,auth){
     return $http.delete('/tasks/' + task._id, {
       headers: {Authorization: 'Bearer '+auth.getToken()}
     }).success(function(data){
-      for(var i = 0; i < o.tasks.length; i++) {
-        var obj = o.tasks[i];
-
-        if(obj._id == data._id) {
-          // console.log("Removing local task with id "+data._id);
-          o.tasks.splice(i, 1);
-          return;
-        }
-      }
+      removeById(o.tasks,data._id);
+      removeById(o.closed_tasks,data._id);
     });
+  };
+
+  o.setState = function(task,state) {
+    return $http.put('/tasks/' + task._id + '/state/'+state, null, {
+      headers: {Authorization: 'Bearer '+auth.getToken()}
+    }).success(function(data){
+        if(task.state == state) {
+          // Nothing to update.
+          return;
+        } 
+
+        if(state=="opened") {
+          // Open task:
+          removeById(o.closed_tasks,data._id);
+          o.tasks.push(data);
+        }
+        else {
+          // closed task:
+          removeById(o.tasks,data._id);
+          o.closed_tasks.push(data);
+        }
+      });
   };
 
   return o;
@@ -278,6 +315,26 @@ function($scope,tasks,auth){
     // console.log("Should delete task '"+task.title+"'");
     tasks.destroy(task);
   };
+
+  $scope.closeTask = function(task) {
+    // console.log("Should delete task '"+task.title+"'");
+    tasks.setState(task,"closed");
+  }; 
+}]);
+
+app.controller('DoneCtrl', [
+'$scope','tasks','auth',
+function($scope,tasks,auth){
+  $scope.tasks = tasks.closed_tasks;
+  $scope.isLoggedIn = auth.isLoggedIn;
+
+  $scope.deleteTask = function(task) {
+    tasks.destroy(task);
+  };
+
+  $scope.reopenTask = function(task) {
+    tasks.setState(task,"opened");
+  };   
 }]);
 
 app.controller('PostsCtrl', [

@@ -87,7 +87,7 @@ router.delete('/:task', auth, function(req, res, next) {
   });
 });
 
-router.put('/tasks/:task/state/:state', auth, function(req, res, next) {
+router.put('/:task/state/:state', auth, function(req, res, next) {
   console.log("Should set state of task "+req.task._id+" to "+req.state)
   req.task.setState(req.state,function(err, task){
     if (err) { return next(err); }

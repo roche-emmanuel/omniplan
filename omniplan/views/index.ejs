@@ -65,9 +65,11 @@
               <div class="col-md-8">
                 <h4>{{task.title}}</h4>
               </div>
-              <div class="col-md-4">
-                <i class="pull-right fa fa-times text-danger" 
-                   ng-click="deleteTask(task)"></i>
+              <div class="col-md-4 text-right">
+                <button class="btn btn-success .navbar-right"
+                  ng-click="closeTask(task)">Close</button>
+                <button class="btn btn-danger .navbar-right" 
+                  ng-click="deleteTask(task)"><i class="fa fa-trash-o fa-lg"></i> Delete</button>
               </div>
             </div>
 
@@ -102,8 +104,30 @@
     </script>
 
     <script type="text/ng-template" id="/done.html">
-      <div class="page-header">
-        <h1>Completed</h1>
+      <div ng-hide="isLoggedIn()">
+        <h3>Please <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> to access the completed tasks.</h3>
+      </div>
+
+      <div ng-show="isLoggedIn()">
+        <div class="page-header">
+          <h1>Completed</h1>
+        </div>
+
+        <ul class="list-group">
+          <li ng-repeat="task in tasks" class="list-group-item">
+            <div class="row">
+              <div class="col-md-8">
+                <h4>{{task.title}}</h4>
+              </div>
+              <div class="col-md-4 text-right">
+                <button class="btn btn-success .navbar-right" ng-click="reopenTask(task)">Reopen</button>
+                <button class="btn btn-danger .navbar-right"><i class="fa fa-trash-o fa-lg"></i> Delete</button>
+              </div>
+            </div>
+
+            <div>{{task.user}}{{task.description=="" ? " - No description" : " - "+task.description}}</div>
+          </li>
+        </ul>        
       </div>
     </script>
 
