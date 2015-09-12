@@ -43,3 +43,4 @@
 09/10/15-22:20:05: Working on issue #13: First working implementation of the task timer.
 09/12/15-11:24:01: Working on issue #13: Added support to report the total time spent on a task.
 09/12/15-12:00:50: Working on issue #13: Adding support to display current timer.
+09/12/15-14:52:22: Playing with task visual design.
