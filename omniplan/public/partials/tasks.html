@@ -11,10 +11,9 @@
     <li ng-repeat="task in tasks" class="list-group-item">
       <div class="row">
         <div class="col-md-8">
-          <h4>{{task.title}}</h4>
+          <h4>{{task.title}} - {{task.totalTime | toHMS }}</h4>
         </div>
         <div class="col-md-4 text-right">
-
           <button ng-show="isRunning(task)" class="btn btn-default .navbar-right"
             ng-click="stopTask(task)"><i class="fa fa-stop fa-lg"></i> Stop</button>
           <button ng-hide="isRunning(task)" class="btn btn-default .navbar-right"

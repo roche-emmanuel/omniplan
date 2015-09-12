@@ -20,6 +20,7 @@ var TaskSchema = new mongoose.Schema({
   running: {type: Boolean, default: false},
   startTime: Date,
   multipler: {type: Number, default: 1},
+  totalTime: {type: Number, default: 0},
   sessions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TaskSession' }],
 });
 
@@ -70,7 +71,7 @@ TaskSchema.methods.stopTimer = function(cb) {
 
     var dur = (session.stopTime - session.startTime)/1000.0;
     console.log("Session duration: "+dur+" seconds.");
-
+    that.totalTime += dur;
     that.sessions.push(session);
     that.save(cb);
   });

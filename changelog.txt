@@ -41,3 +41,4 @@
 09/10/15-15:34:55: Adding task factory script module.
 09/10/15-21:47:54: Working on issue #13: Adding initial support for timer on tasks.
 09/10/15-22:20:05: Working on issue #13: First working implementation of the task timer.
+09/12/15-11:24:01: Working on issue #13: Added support to report the total time spent on a task.

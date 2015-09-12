@@ -98,6 +98,7 @@ angular.module('TaskFactory', [])
     }).success(function(data){
       task.running = data.running;
       task.startTime = data.startTime;
+      task.totalTime = data.totalTime;
       console.log("Currenting running state: "+ task.running);
     });    
   };

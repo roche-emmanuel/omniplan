@@ -1,4 +1,4 @@
-var app = angular.module('omniPlan', ['ui.router','opRoutes','opAuthFactory','TaskFactory','TaskController']);
+var app = angular.module('omniPlan', ['ui.router','opRoutes','opAuthFactory','TaskFactory','TaskController','Filters']);
 
 app.factory('posts', ['$http','auth',function($http,auth){
   var o = {
