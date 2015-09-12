@@ -17,11 +17,19 @@ angular.module('TaskFactory', [])
     }
   };
 
+  var parseDates = function(array) {
+    for(var i = 0; i < array.length; i++) {
+      var task = array[i];
+      task.startTime = Date.parse(task.startTime);
+     }
+  };
+
   o.getAll = function() {
     return $http.get('/tasks/state/opened',{
       headers: {Authorization: 'Bearer '+auth.getToken()}
     }).success(function(data){
       angular.copy(data, o.tasks);
+      parseDates(o.tasks);
     });
   };
 
@@ -30,6 +38,7 @@ angular.module('TaskFactory', [])
       headers: {Authorization: 'Bearer '+auth.getToken()}
     }).success(function(data){
       angular.copy(data, o.closed_tasks);
+      parseDates(o.closed_tasks);
     });
   };
 
@@ -86,7 +95,7 @@ angular.module('TaskFactory', [])
       headers: {Authorization: 'Bearer '+auth.getToken()}
     }).success(function(data){
       task.running = data.running;
-      task.startTime = data.startTime;  // TODO: we might need an offset here ?
+      task.startTime = Date.parse(data.startTime);  // TODO: we might need an offset here ?
       console.log("Currenting running state: "+ task.running);
     });    
   };
@@ -97,7 +106,8 @@ angular.module('TaskFactory', [])
       headers: {Authorization: 'Bearer '+auth.getToken()}
     }).success(function(data){
       task.running = data.running;
-      task.startTime = data.startTime;
+      console.log("data.startTime: "+data.startTime)
+      // task.startTime = Date.parse(data.startTime);
       task.totalTime = data.totalTime;
       console.log("Currenting running state: "+ task.running);
     });    

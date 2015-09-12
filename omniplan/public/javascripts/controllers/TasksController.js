@@ -1,9 +1,15 @@
 angular.module('TaskController', ['opAuthFactory','TaskFactory'])
 .controller('TasksCtrl', [
-'$scope','tasks','auth',
-function($scope,tasks,auth){
+'$scope','tasks','auth','$interval',
+function($scope,tasks,auth,$interval){
   $scope.tasks = tasks.tasks;
   $scope.isLoggedIn = auth.isLoggedIn;
+  $scope.currentTime = Date.now();
+
+  var tick = function() {
+    $scope.currentTime = Date.now();
+  };
+  $interval(tick, 1000);
 
   $scope.addTask = function(){
     if(!$scope.title || $scope.title === '') { return; }
