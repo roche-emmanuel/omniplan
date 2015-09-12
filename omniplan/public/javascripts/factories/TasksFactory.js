@@ -94,8 +94,8 @@ angular.module('TaskFactory', [])
     return $http.put('/tasks/' + task._id + '/start', body, {
       headers: {Authorization: 'Bearer '+auth.getToken()}
     }).success(function(data){
-      task.running = data.running;
       task.startTime = Date.parse(data.startTime);  // TODO: we might need an offset here ?
+      task.running = data.running;
       console.log("Currenting running state: "+ task.running);
     });    
   };

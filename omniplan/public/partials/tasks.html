@@ -9,54 +9,29 @@
 
   <ul class="list-group">
     <li ng-repeat="task in tasks" class="list-group-item">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="list-group list-group-horizontal">
-            <div class="list-group-item">
-              <h4 class=>{{task.title}}</h4>
-            </div>
-            <div class="list-group-item">
-              <span class="label label-default">{{task.totalTime | toHMS }}</span> 
-            </div>
+      <ul class="list-inline" ng-mouseenter="currentTarget=$index" ng-mouseleave="currentTarget=-1">
+        <li class="vcenter">
+          <h4 class=>{{task.title}}</h4>
+        </li>
+        <li class="vcenter">
+          <span class="label label-default">{{task.totalTime | toHMS }}</span> 
+        </li>
 
-            <div class="list-group-item text-right">
-              <span ng-show="isRunning(task)">Session: {{ (currentTime - task.startTime)/1000.0 | toHMS }}</span>
-              <button ng-show="isRunning(task)" class="btn btn-default .navbar-right"
-                ng-click="stopTask(task)"><i class="fa fa-stop fa-lg"></i> Stop</button>
-              <button ng-hide="isRunning(task)" class="btn btn-default .navbar-right"
-                ng-click="startTask(task)"><i class="fa fa-play fa-lg"></i> Start</button>            
-              <button class="btn btn-success .navbar-right"
-                ng-click="closeTask(task)">Close</button>
-              <button class="btn btn-danger .navbar-right" 
-                ng-click="deleteTask(task)"><i class="fa fa-trash-o fa-lg"></i> Delete</button>
-            </div>
-          </div>
-        </div>
+        <li class="pull-right vcenter">
+          <span ng-show="isRunning(task)">Session: {{ (currentTime - task.startTime)/1000.0 | toHMS }}</span>
+        </li>
+        <li class="pull-right vcenter" ng-show="currentTarget==$index">
+          <button ng-show="isRunning(task)" class="btn btn-default .navbar-right"
+            ng-click="stopTask(task)"><i class="fa fa-stop fa-lg"></i> Stop</button>
+          <button ng-hide="isRunning(task)" class="btn btn-default .navbar-right"
+            ng-click="startTask(task)"><i class="fa fa-play fa-lg"></i> Start</button>            
+          <button class="btn btn-success .navbar-right"
+            ng-click="closeTask(task)">Close</button>
+          <button class="btn btn-danger .navbar-right" 
+            ng-click="deleteTask(task)"><i class="fa fa-trash-o fa-lg"></i> Delete</button>
+        </li>
+      </ul>
       <div>{{task.user}}{{task.description=="" ? " - No description" : " - "+task.description}}</div>
     </li>
   </ul>
-
-  <form ng-submit="addTask()">
-    <h3>Add a new task</h3>
-
-    <div class="input-group" style="margin-top:30px;">
-      <span class="input-group-addon" id="title-addon">Title</span>
-      <input type="text"
-        class="form-control"
-        placeholder="Title"
-        aria-describedby="title-addon"
-        ng-model="title"></input>
-    </div>
-
-    <div class="input-group" style="margin-top:30px;">
-      <span class="input-group-addon" id="desc-addon">Desc</span>
-      <input type="text"
-      class="form-control"
-      placeholder="Description"
-      aria-describedby="desc-addon"
-      ng-model="description"></input>
-    </div>
-
-    <button type="submit" class="btn btn-primary" style="margin-top:30px;">Add</button>
-  </form>
 </div>
