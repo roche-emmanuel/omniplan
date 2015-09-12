@@ -1,0 +1,15 @@
+<div ng-hide="isLoggedIn()">
+  <h3>Please <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> to access the tags.</h3>
+</div>
+
+<div ng-show="isLoggedIn()">
+  <div class="page-header">
+    <h1>Tags</h1>
+  </div>
+
+  <ul class="list-group">
+    <li ng-repeat="tag in tags" class="list-group-item">
+      <h4 class=>{{tag.name}}</h4>
+    </li>
+  </ul>
+</div>

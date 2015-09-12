@@ -30,3 +30,10 @@ a {
     vertical-align: middle;
     float: none;
 }
+
+.totalTime {
+	color: #fff;
+	background-color: #aaa;
+	padding: 4px;
+	border-radius: 4px;
+}

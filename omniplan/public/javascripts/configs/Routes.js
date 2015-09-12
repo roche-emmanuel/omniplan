@@ -46,6 +46,16 @@ function($stateProvider, $urlRouterProvider) {
         }]
       }
     })
+    .state('tags', {
+      url: '/tags',
+      templateUrl: '/partials/tags.html',
+      controller: 'TagsCtrl',
+      resolve: {
+        post: ['$stateParams', 'tags', function($stateParams, tags) {
+          return tags.getAll();
+        }]
+      }
+    })
     .state('login', {
       url: '/login',
       templateUrl: '/partials/login.html',

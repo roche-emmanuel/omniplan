@@ -9,18 +9,16 @@
 
   <ul class="list-group">
     <li ng-repeat="task in tasks" class="list-group-item">
-      <ul class="list-inline" ng-mouseenter="currentTarget=$index" ng-mouseleave="currentTarget=-1">
+      <ul class="list-inline"> <!-- ng-mouseenter="currentTarget=$index" ng-mouseleave="currentTarget=-1" -->
         <li class="vcenter">
           <h4 class=>{{task.title}}</h4>
         </li>
         <li class="vcenter">
-          <span class="label label-default">{{task.totalTime | toHMS }}</span> 
+          <span class="totalTime">{{task.totalTime | toHMS }}</span>  <!-- label label-default-->
         </li>
 
-        <li class="pull-right vcenter">
+        <li class="pull-right vcenter"> <!--ng-show="currentTarget==$index" -->
           <span ng-show="isRunning(task)">Session: {{ (currentTime - task.startTime)/1000.0 | toHMS }}</span>
-        </li>
-        <li class="pull-right vcenter" ng-show="currentTarget==$index">
           <button ng-show="isRunning(task)" class="btn btn-default .navbar-right"
             ng-click="stopTask(task)"><i class="fa fa-stop fa-lg"></i> Stop</button>
           <button ng-hide="isRunning(task)" class="btn btn-default .navbar-right"
