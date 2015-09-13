@@ -15,9 +15,9 @@ router.param('tag', function(req, res, next, id) {
   console.log("Retrieving tag with id="+id);
   var query = Tag.findById(id);
 
-  query.exec(function (err, task){
+  query.exec(function (err, tag){
     if (err) { return next(err); }
-    if (!task) { return next(new Error('can\'t find tag')); }
+    if (!tag) { return next(new Error('can\'t find tag')); }
 
     req.tag = tag;
     return next();
