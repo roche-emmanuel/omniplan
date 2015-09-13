@@ -37,3 +37,12 @@ a {
 	padding: 4px;
 	border-radius: 4px;
 }
+
+.tag {
+	padding-top: 4px;
+	padding-bottom: 4px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-radius: 8px;
+	background-color: #aaa;
+}

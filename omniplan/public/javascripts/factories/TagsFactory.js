@@ -28,6 +28,7 @@ angular.module('TagFactory', [])
     return $http.post('/tags', tag, {
       headers: {Authorization: 'Bearer '+auth.getToken()}
     }).success(function(data){
+      console.log("Created tag: "+JSON.stringify(data));
       o.tags.push(data);
     });
   };

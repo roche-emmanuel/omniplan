@@ -20,12 +20,21 @@
     </div>
 
     <div class="input-group" style="margin-top:30px;">
-      <span class="input-group-addon" id="tagColor-addon">Color</span>
+      <span class="input-group-addon" id="tagBgColor-addon">Bg color</span>
       <input type="text"
       class="form-control"
-      placeholder="#00ff00"
-      aria-describedby="tagColor-addon"
-      ng-model="description"></input>
+      placeholder="(random)"
+      aria-describedby="tagBgColor-addon"
+      ng-model="tagBgColor"></input>
+    </div>
+
+    <div class="input-group" style="margin-top:30px;">
+      <span class="input-group-addon" id="tagFgColor-addon">Fg color</span>
+      <input type="text"
+      class="form-control"
+      placeholder="(random)"
+      aria-describedby="tagFgColor-addon"
+      ng-model="tagFgColor"></input>
     </div>
 
     <button type="submit" class="btn btn-primary" style="margin-top:30px;">Add</button>
@@ -35,7 +44,7 @@
     <li ng-repeat="tag in tags" class="list-group-item">
       <ul class="list-inline"> <!-- ng-mouseenter="currentTarget=$index" ng-mouseleave="currentTarget=-1" -->
         <li class="vcenter">
-          <h4 class=>{{tag.name}}</h4>
+          <h4 class="tag" ng-style="{ backgroundColor: '{{tag.bgColor}}', color: '{{tag.fgColor}}' }">{{tag.name}}</h4>
         </li>
         <li class="pull-right vcenter">
           <button class="btn btn-danger .navbar-right" 
