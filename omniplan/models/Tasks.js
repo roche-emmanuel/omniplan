@@ -22,6 +22,7 @@ var TaskSchema = new mongoose.Schema({
   multipler: {type: Number, default: 1},
   totalTime: {type: Number, default: 0},
   sessions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TaskSession' }],
+  tags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }],
 });
 
 TaskSchema.methods.setState = function(state,cb) {

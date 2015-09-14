@@ -48,3 +48,4 @@
 09/13/15-00:34:09: Working on issue #15: adding initial support for tag list.
 09/13/15-10:18:08: Working on issue #15: added proper listing for tags: can add/remove items.
 09/13/15-19:15:04: Working on issue #15: Added support to display the tags with the proper bg/fg colors.
+09/14/15-22:37:20: Working on issue #15: tag list implementation. Added support for enter directive.

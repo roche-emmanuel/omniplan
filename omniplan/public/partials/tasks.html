@@ -8,8 +8,8 @@
   </div>
 
   <ul class="list-group">
-    <li ng-repeat="task in tasks" class="list-group-item">
-      <ul class="list-inline"> <!-- ng-mouseenter="currentTarget=$index" ng-mouseleave="currentTarget=-1" -->
+    <li ng-repeat="task in tasks" class="list-group-item" ng-mouseenter="currentTask=$index" ng-mouseleave="currentTask=-1">
+      <ul class="list-inline"> <!--  -->
         <li class="vcenter">
           <h4 class=>{{task.title}}</h4>
         </li>
@@ -29,6 +29,22 @@
             ng-click="deleteTask(task)"><i class="fa fa-trash-o fa-lg"></i> Delete</button>
         </li>
       </ul>
+      <ul class="list-inline">
+        <li ng-repeat="tag in task.tags">
+          <span class="tag" ng-style="{ backgroundColor: '{{tag.bgColor}}', color: '{{tag.fgColor}}' }">{{tag.name}}</span>
+        </li>
+        <li>
+          <div class="btn btn-success btn-xs" ng-show="currentTask==$index && addTagIndex!=$index" ng-click="addTagIndex = $index">
+            <i class="fa fa-plus fa-fw fa-inverse"></i></div>
+          <div ng-show="addTagIndex==$index">
+            <div class="input-group input-group-sm" style="width:200px;">
+              <span class="input-group-addon" id="tag-addon">#</span>
+              <input type="text" class="form-control" placeholder="Tag name" aria-describedby="tag-addon"
+                ng-model="tagName" ng-enter="addTagIndex=-1; addTag(task,tagName);">
+            </div>
+          </div>
+        </li>
+      </ul>    
       <div>{{task.user}}{{task.description=="" ? " - No description" : " - "+task.description}}</div>
     </li>
   </ul>

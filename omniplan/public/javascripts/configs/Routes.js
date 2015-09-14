@@ -21,8 +21,11 @@ function($stateProvider, $urlRouterProvider) {
       templateUrl: '/partials/tasks.html',
       controller: 'TasksCtrl',
       resolve: {
-        postPromise: ['tasks', function(tasks){
+        tasksPromise: ['tasks', function(tasks){
           return tasks.getAll();
+        }],
+        tagsPromise: ['tags', function(tags){
+          return tags.getAll();
         }]
       }
     })

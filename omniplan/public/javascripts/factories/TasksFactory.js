@@ -1,5 +1,5 @@
 angular.module('TaskFactory', [])
-.factory('tasks', ['$http','auth',function($http,auth){
+.factory('tasks', ['$http','auth','tags','utils',function($http,auth,tags,utils){
   var o = {
     tasks: [],
     closed_tasks: []
@@ -111,6 +111,15 @@ angular.module('TaskFactory', [])
       task.totalTime = data.totalTime;
       console.log("Currenting running state: "+ task.running);
     });    
+  };
+
+  o.addTag = function(task, tag) {
+    return $http.put('/tasks/' + task._id + '/tag/' + tag._id, null, {
+      headers: {Authorization: 'Bearer '+auth.getToken()}
+    }).success(function(data){
+      // The data we receive should be the tag object itself.
+      task.tags.push(tag);
+    });        
   };
 
   return o;

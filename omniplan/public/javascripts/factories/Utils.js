@@ -31,5 +31,16 @@ angular.module('Utils', [])
     return L;
   };
 
+  // Find an object in an array by key value
+  obj.findByKey = function(array,key,val) {
+    for(var i = 0; i < array.length; i++) {
+      var obj = array[i];
+
+      if(obj[key] == val) {
+        return obj;
+      }
+    }
+  };
+
   return obj;
 }]);
