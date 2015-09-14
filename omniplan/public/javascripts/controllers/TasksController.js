@@ -58,5 +58,19 @@ function($scope,tasks,auth,$interval,tags,utils){
     else {
       tasks.addTag(task,tag);
     }
-  }
+  };
+
+  $scope.removeTag = function(task,tagName) {
+    console.log("Should remove tag "+tagName+" from task "+task.title);
+    // Retrieve the tag object by its name from the
+    // tags factory:
+    var tag = utils.findByKey(tags.tags,'name',tagName);
+    if(!tag) {
+      console.warn("Undefined tag with name "+tagName)
+    }
+    else {
+      tasks.removeTag(task,tag);
+    }
+  };
+
 }]);

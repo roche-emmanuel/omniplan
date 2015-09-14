@@ -7,6 +7,7 @@ var jwt = require('express-jwt');
 
 var mongoose = require('mongoose');
 var Task = mongoose.model('Task');
+var Tag = mongoose.model('Tag');
 var User = mongoose.model('User');
 
 // var Post = mongoose.model('Post');
@@ -24,6 +25,19 @@ router.param('task', function(req, res, next, id) {
     if (!task) { return next(new Error('can\'t find task')); }
 
     req.task = task;
+    return next();
+  });
+});
+
+router.param('tag', function(req, res, next, id) {
+  console.log("Retrieving tag with id="+id);
+  var query = Tag.findById(id);
+
+  query.exec(function (err, tag){
+    if (err) { return next(err); }
+    if (!tag) { return next(new Error('can\'t find tag')); }
+
+    req.tag = tag;
     return next();
   });
 });
@@ -114,6 +128,52 @@ router.put('/:task/stop', auth, function(req, res, next) {
   });
 });
 
+router.get('/:task/tags', auth, function(req, res, next) {
+  console.log("Should populate the tags for the task "+ req.task.title);
+  
+  req.task.populate('tags', function(err, task) {
+    if (err) { return next(err); }
+
+    res.json(task.tags);
+  });
+});
+
+
+router.put('/:task/tag/:tag', auth, function(req, res, next) {
+  console.log("Should add the tag "+req.tag.name+" to the task "+ req.task.title);
+  req.task.tags.push(req.tag);
+
+  req.task.save(function(err, task) {
+    if(err){ return next(err); }
+
+    res.json(req.tag);
+  });
+});
+
+router.delete('/:task/tag/:tag', auth, function(req, res, next) {
+  console.log("Should remove the tag "+req.tag.name+" from the task "+ req.task.title);
+
+  // Note: the tag list is NOT populated here!
+  // so we just have the tags IDs.
+  var array = req.task.tags;
+  for(var i = 0; i < array.length; i++) {
+    var obj = array[i];
+
+    // TODO: clarify why we have to use stringify here.
+    // console.log("Comparing obj="+JSON.stringify(obj)+" to id="+JSON.stringify(req.tag._id), ", type:"+typeof(obj));
+    if(JSON.stringify(obj) == JSON.stringify(req.tag._id)) {
+      array.splice(i, 1);
+      console.log("Removing obj="+JSON.stringify(obj));
+      break;
+    }
+  }
+
+  req.task.save(function(err, task) {
+    if(err){ return next(err); }
+
+    res.json(req.tag);
+  });
+});
 
 // router.get('/posts/:post', function(req, res, next) {
 //   req.post.populate('comments', function(err, post) {

@@ -42,5 +42,17 @@ angular.module('Utils', [])
     }
   };
 
+  obj.removeById = function(array,id) {
+    for(var i = 0; i < array.length; i++) {
+      var obj = array[i];
+
+      if(obj._id == id) {
+        // console.log("Removing local task with id "+data._id);
+        array.splice(i, 1);
+        return;
+      }
+    }
+  };
+
   return obj;
 }]);

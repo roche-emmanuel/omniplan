@@ -8,7 +8,7 @@
   </div>
 
   <ul class="list-group">
-    <li ng-repeat="task in tasks" class="list-group-item" ng-mouseenter="currentTask=$index" ng-mouseleave="currentTask=-1">
+    <li ng-repeat="task in tasks" class="list-group-item" ng-mouseenter="currentTask=$index" ng-mouseleave="currentTask=-1; addTagIndex=-1">
       <ul class="list-inline"> <!--  -->
         <li class="vcenter">
           <h4 class=>{{task.title}}</h4>
@@ -30,8 +30,10 @@
         </li>
       </ul>
       <ul class="list-inline">
-        <li ng-repeat="tag in task.tags">
-          <span class="tag" ng-style="{ backgroundColor: '{{tag.bgColor}}', color: '{{tag.fgColor}}' }">{{tag.name}}</span>
+        <li ng-repeat="tag in task.tags | orderBy:'+name'">
+          <span class="btn btn-xs" ng-style="{ backgroundColor: '{{tag.bgColor}}', color: '{{tag.fgColor}}' }"
+            ng-click="removeTag(task,tag.name);">
+            {{tag.name}} <i class="fa fa-times fa-fw fa-inverse"></i></span>
         </li>
         <li>
           <div class="btn btn-success btn-xs" ng-show="currentTask==$index && addTagIndex!=$index" ng-click="addTagIndex = $index">

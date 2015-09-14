@@ -17,10 +17,18 @@ angular.module('TaskFactory', [])
     }
   };
 
-  var parseDates = function(array) {
+  var populateTask = function(array) {
     for(var i = 0; i < array.length; i++) {
       var task = array[i];
       task.startTime = Date.parse(task.startTime);
+      (function(task) {
+        $http.get('/tasks/'+task._id+'/tags',{
+          headers: {Authorization: 'Bearer '+auth.getToken()}
+        }).success(function(data){
+          angular.copy(data, task.tags);
+          // console.log("Tags list for task "+task.title+": "+ JSON.stringify(task.tags));
+        });
+      }(task));
      }
   };
 
@@ -29,7 +37,7 @@ angular.module('TaskFactory', [])
       headers: {Authorization: 'Bearer '+auth.getToken()}
     }).success(function(data){
       angular.copy(data, o.tasks);
-      parseDates(o.tasks);
+      populateTask(o.tasks);
     });
   };
 
@@ -38,7 +46,7 @@ angular.module('TaskFactory', [])
       headers: {Authorization: 'Bearer '+auth.getToken()}
     }).success(function(data){
       angular.copy(data, o.closed_tasks);
-      parseDates(o.closed_tasks);
+      populateTask(o.closed_tasks);
     });
   };
 
@@ -119,6 +127,15 @@ angular.module('TaskFactory', [])
     }).success(function(data){
       // The data we receive should be the tag object itself.
       task.tags.push(tag);
+    });        
+  };
+
+  o.removeTag = function(task, tag) {
+    return $http.delete('/tasks/' + task._id + '/tag/' + tag._id, {
+      headers: {Authorization: 'Bearer '+auth.getToken()}
+    }).success(function(data){
+      // The data we receive should be the tag object itself.
+      utils.removeById(task.tags,tag._id);
     });        
   };
 
