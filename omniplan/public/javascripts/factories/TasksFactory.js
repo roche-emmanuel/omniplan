@@ -32,6 +32,34 @@ angular.module('TaskFactory', [])
      }
   };
 
+  // Method used to populate the content of a task from cached data or
+  // retrieve the data from the server if required:
+  o.retrieveTask = function(task) {
+    var id = task._id;
+
+    // Check if the data is available in the cached tasks:
+    for(var i=0;i<o.tasks.length;++i) {
+      if(o.tasks[i]._id == id) {
+        console.debug("Retrieving task "+id+" from cached list.");
+        angular.copy(o.tasks[i], task);
+        return;
+      }
+    }
+
+    // Check if the data is available in the cached closed tasks:
+    for(var i=0;i<o.closed_tasks.length;++i) {
+      if(o.closed_tasks[i]._id == id) {
+        console.debug("Retrieving closed task "+id+" from cached list.");
+        angular.copy(o.closed_tasks[i], task);
+        return;
+      }
+    }
+
+    // Task was not found so far, should retrieve it from the server:
+    console.error("Could not retrieve task "+id+" from cached list!");
+    console.error("Should retrieve task from server (not implemented yet)");
+  };
+
   o.getAll = function() {
     return $http.get('/tasks/state/opened',{
       headers: {Authorization: 'Bearer '+auth.getToken()}

@@ -51,6 +51,10 @@ a {
 	background-color: #fafafa;
 }
 
+.sessionline:hover {
+	background-color: #fafafa;
+}
+
 .ibutton {
 	cursor: pointer;
 }

@@ -52,3 +52,4 @@
 09/15/15-00:10:25: Working on issue #15: added support adding/removing tags on a task.
 09/27/15-00:09:19: Working on issue #16: refactoring the display of the tasks: using an row for each task.
 10/04/15-09:26:00: Working on issue #17: Added initial support for activity page.
+10/04/15-14:36:10: Working on issue #17: adding some additional content in activity controller to retrieve the list of sessions and associated tasks.

@@ -7,5 +7,18 @@
     <h1>Activity</h1>
   </div>
 
-  
+  <div ng-repeat="day in days">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{day.caption}}</h3>
+      </div>
+      <ul class="list-group">
+        <li ng-repeat="session in day.sessions" class="list-group-item sessionline" ng-mouseenter="currentSession=$index" ng-mouseleave="currentSession=-1">
+          {{session}}
+        </li>
+      </ul>
+   
+    </div>
+  </div>
+
 </div>
