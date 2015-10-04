@@ -2,8 +2,8 @@ var mongoose = require('mongoose');
 
 var TaskSessionSchema = new mongoose.Schema({
   task: { type: mongoose.Schema.Types.ObjectId, ref: 'Task' },
-  startTime: Date,
-  stopTime: Date,
+  startTime: Number,
+  stopTime: Number,
   multiplier: {type: Number, default: 1.0},
 });
 
@@ -58,10 +58,16 @@ TaskSchema.methods.stopTimer = function(cb) {
 
 	var that = this;
 
+	console.log("Computing start time from: "+ this.startTime);
+	var sTime = this.startTime.getTime();
+	console.log("Session start time is: "+ sTime);
+	var eTime = Date.now(); //sTime + 10.0;
+	console.log("Session stop time is: "+eTime);
+
 	// Create a new session from the previous info:
 	var session = new TaskSession({
-		startTime: this.startTime,
-		stopTime: Date.now(),
+		startTime: sTime,
+		stopTime: eTime,
 		multiplier: this.multiplier,
 		task: this,
 	});

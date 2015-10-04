@@ -30,6 +30,9 @@ router.get('/', auth, function(req, res, next) {
   User.findOne({username: uname}, function(err,user){
     if(err) { return next(err); }
 
+    // if there is no user, then there is no tag to return:
+    if(user==null) { return res.json([]); }
+
     Tag.find({user: user._id},function(err, tags){
       if(err){ return next(err); }
 
