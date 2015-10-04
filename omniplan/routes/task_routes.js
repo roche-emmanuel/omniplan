@@ -91,6 +91,11 @@ router.post('/', auth, function(req, res, next) {
 });
 
 
+router.get('/:task', auth, function(req, res, next) {
+  res.json(req.task); 
+});
+
+
 router.delete('/:task', auth, function(req, res, next) {
   // console.log("Received request to delete task="+req.task._id);
   req.task.remove(function(err,task) {

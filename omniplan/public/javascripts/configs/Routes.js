@@ -63,11 +63,12 @@ function($stateProvider, $urlRouterProvider) {
       url: '/activity',
       templateUrl: '/partials/activity.html',
       controller: 'ActivityCtrl',
-      // resolve: {
-      //   post: ['$stateParams', 'tags', function($stateParams, tags) {
-      //     return tags.getAll();
-      //   }]
-      // }
+      resolve: {
+        needed: ['$stateParams', 'activity', function($stateParams, activity) {
+          console.debug("Performing resolve request...");
+          return activity.getInitial();
+        }]
+      }
     })
     .state('login', {
       url: '/login',

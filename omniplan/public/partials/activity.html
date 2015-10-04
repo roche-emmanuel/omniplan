@@ -12,9 +12,14 @@
       <div class="panel-heading">
         <h3 class="panel-title">{{day.caption}}</h3>
       </div>
-      <ul class="list-group">
+      <ul class="list-group" ng-hide="day.groupByTask">
         <li ng-repeat="session in day.sessions" class="list-group-item sessionline" ng-mouseenter="currentSession=$index" ng-mouseleave="currentSession=-1">
-          {{session}}
+          {{session._id}}
+        </li>
+      </ul>
+      <ul class="list-group" ng-show="day.groupByTask">
+        <li ng-repeat="tdesc in day.tasks" class="list-group-item taskline" ng-mouseenter="currentTask=$index" ng-mouseleave="currentTask=-1">
+          {{tdesc.task.title}}
         </li>
       </ul>
    

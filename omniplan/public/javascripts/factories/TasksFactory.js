@@ -56,8 +56,16 @@ angular.module('TaskFactory', [])
     }
 
     // Task was not found so far, should retrieve it from the server:
-    console.error("Could not retrieve task "+id+" from cached list!");
-    console.error("Should retrieve task from server (not implemented yet)");
+    return $http.get('/tasks/' + id, {
+      headers: {Authorization: 'Bearer '+auth.getToken()}
+    }).success(function(data){
+      // We retrieved the selected task, so we can populate the table:
+      console.debug("Retrieving task "+id+" from server.");
+      angular.copy(data,task);
+    });
+
+    // console.error("Could not retrieve task "+id+" from cached list: "+JSON.stringify(o.tasks));
+    // console.error("Should retrieve task from server (not implemented yet)");
   };
 
   o.getAll = function() {

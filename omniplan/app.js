@@ -20,6 +20,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var task_routes = require('./routes/task_routes');
 var tag_routes = require('./routes/tag_routes');
+var session_routes = require('./routes/session_routes');
 
 mongoose.connect('mongodb://localhost/news');
 
@@ -42,6 +43,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/tasks', task_routes);
 app.use('/tags', tag_routes);
+app.use('/sessions', session_routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -61,6 +63,8 @@ if (app.get('env') === 'development') {
       message: err.message,
       error: err
     });
+    console.error(err.name +": "+ err.message);
+    console.error("Stack: "+ err.stack);
   });
 }
 

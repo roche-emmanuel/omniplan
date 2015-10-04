@@ -23,7 +23,7 @@ angular.module('ActivityFactory', [])
   var getOrCreateDayTable = function(date) {
     // Check if that day exists in the day list:
     for(var i = 0; i < o.days.length; i++) {
-      if(o.days[i].date == date) {
+      if(o.days[i].date.getTime() == date.getTime()) {
         console.debug("Found existing day table for date: "+date);
         return o.days[i];
       }
@@ -126,17 +126,17 @@ angular.module('ActivityFactory', [])
   var computeDayStats = function(dayt) {
     // for the complete day duration, we can simply iterate on all sessions in that day:
     var completeDur = 0.0;
-    for(var i=0;i<dayt.sessions.length();++i) {
+    for(var i=0;i<dayt.sessions.length;++i) {
       // WARNING: we need to convert to number start/stop time for the following to
       // work:
       completeDur += (dayt.sessions[i].stopTime - dayt.sessions[i].startTime)/1000.0;
     }
 
     // Now compute the duration for each task:
-    for(var i=0;i<dayt.tasks.length();++i) {
+    for(var i=0;i<dayt.tasks.length;++i) {
       var task = dayt.tasks[i];
       task.duration = 0.0;
-      for(var j=0;j<task.sessions.length();++j) {
+      for(var j=0;j<task.sessions.length;++j) {
         task.duration += (task.sessions[j].stopTime - task.sessions[j].startTime)/1000.0;
       }
     }
@@ -150,9 +150,13 @@ angular.module('ActivityFactory', [])
     var startTime = date.getTime();
     var endTime = startTime+86400000;
 
-    return $http.post('/sessions/get', {startTime: startTime, endTime: endTime}, {
+    console.debug("Retrieving day sessions with startTime="+startTime);
+
+    return $http.post('/sessions/get', {startTime: startTime, stopTime: endTime}, {
       headers: {Authorization: 'Bearer '+auth.getToken()}
     }).success(function(data){
+      console.debug("Received "+data.length+" session(s) in list for day with startTime="+startTime);
+
       // Once we have received the list of sessions we populate the day table
       var dayt = getOrCreateDayTable(date);
       dayt.sessions = [];
@@ -174,15 +178,17 @@ angular.module('ActivityFactory', [])
 
   o.getInitial = function() {
     // Get the content for some initial days:
-    var d1 = normalizeDayDate(new Date());
+    var d1 = utils.normalizeDayDate(new Date());
     console.debug("Current date is: "+d1);
-    getDay(d1);
-    var d2 = normalizeDayDate(new Date(d1.getTime() - 8640000));
+
+    var d2 = utils.normalizeDayDate(new Date(d1.getTime() - 8640000));
     console.debug("Yesterday was: "+d2);
-    getDay(d2);
-    var d3 = normalizeDayDate(new Date(d2.getTime() - 8640000));
+    o.getDay(d2);
+    var d3 = utils.normalizeDayDate(new Date(d2.getTime() - 8640000));
     console.debug("Day before was: "+d3);
-    getDay(d3);
+    o.getDay(d3);
+
+    return o.getDay(d1);
   };
 
   return o;

@@ -54,3 +54,4 @@
 10/04/15-09:26:00: Working on issue #17: Added initial support for activity page.
 10/04/15-14:36:10: Working on issue #17: adding some additional content in activity controller to retrieve the list of sessions and associated tasks.
 10/04/15-15:04:57: Working on issue #17: saving session times as number of millisecs instead of dates.
+10/04/15-21:14:53: Working on issue #17: Working initial implementation of activity page.

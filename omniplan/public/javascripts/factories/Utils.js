@@ -57,7 +57,7 @@ angular.module('Utils', [])
   // Method to ensure that a day date always contain the hours/mins/secs fields
   // set to zero.
   obj.normalizeDayDate = function(date) {
-    return new Date(date.getFullYear(),date.getMonth(),date.getDay(),0,0,0,0);
+    return new Date(date.getFullYear(),date.getMonth(),date.getDate(),0,0,0,0);
   };
 
   return obj;

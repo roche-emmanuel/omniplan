@@ -1,28 +1,29 @@
-angular.module('ActivityController', ['opAuthFactory','TaskFactory','TagFactory','Utils'])
+angular.module('ActivityController', ['opAuthFactory','TaskFactory','ActivityFactory','Utils'])
 .controller('ActivityCtrl', [
-'$scope','tasks','auth','$interval','tags','utils',
-function($scope,tasks,auth,$interval,tags,utils){
+'$scope','tasks','auth','$interval','activity','utils',
+function($scope,tasks,auth,$interval,activity,utils){
   $scope.isLoggedIn = auth.isLoggedIn;
-  $scope.days = [
-    { 
-      caption: "Today",
-      groupByTask: false,
-      sessions: ["session1","session2"],
-    },
-    { 
-      caption: "Yesterday",
-      groupByTask: true,
-      sessions: ["session3","session4"],
-      tasks: [
-        {
-          task: "The Task",
-          sessions: ["session5","session6"],
-        }
-      ],
-    },
-  ];
+  // $scope.days = [
+  //   { 
+  //     caption: "Today",
+  //     groupByTask: false,
+  //     sessions: ["session1","session2"],
+  //   },
+  //   { 
+  //     caption: "Yesterday",
+  //     groupByTask: true,
+  //     sessions: ["session3","session4"],
+  //     tasks: [
+  //       {
+  //         task: "The Task",
+  //         sessions: ["session5","session6"],
+  //       }
+  //     ],
+  //   },
+  // ];
 
-  // $scope.tasks = tasks.tasks;
+  $scope.days = activity.days;
+
   // $scope.currentTime = Date.now();
 
   // var tick = function() {

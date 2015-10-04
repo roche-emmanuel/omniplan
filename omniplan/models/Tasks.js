@@ -4,6 +4,7 @@ var TaskSessionSchema = new mongoose.Schema({
   task: { type: mongoose.Schema.Types.ObjectId, ref: 'Task' },
   startTime: Number,
   stopTime: Number,
+  user: String,
   multiplier: {type: Number, default: 1.0},
 });
 
@@ -70,6 +71,7 @@ TaskSchema.methods.stopTimer = function(cb) {
 		stopTime: eTime,
 		multiplier: this.multiplier,
 		task: this,
+		user: this.user,
 	});
 
 	console.log("Trying to save session...")
