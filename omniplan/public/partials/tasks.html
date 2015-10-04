@@ -8,7 +8,7 @@
   </div>
 
   <ul class="list-group">
-    <li ng-repeat="task in tasks" class="list-group-item" ng-mouseenter="currentTask=$index" ng-mouseleave="currentTask=-1; addTagIndex=-1">
+    <li ng-repeat="task in tasks" class="list-group-item taskline" ng-mouseenter="currentTask=$index" ng-mouseleave="currentTask=-1; addTagIndex=-1">
       
       <div class="row">
         <div class="col-md-10">
@@ -34,17 +34,15 @@
           <div>{{task.user}}{{task.description=="" ? " - No description" : " - "+task.description}}</div>
         </div>
         <div class="col-md-1">
-          <span ng-show="isRunning(task)">Session: {{ (currentTime - task.startTime)/1000.0 | toHMS }}</span>
-          <button ng-show="isRunning(task)" class="btn btn-default .navbar-right"
-            ng-click="stopTask(task)"><i class="fa fa-stop fa-lg"></i> Stop</button>
-          <button ng-hide="isRunning(task)" class="btn btn-default .navbar-right"
-            ng-click="startTask(task)"><i class="fa fa-play fa-lg"></i> Start</button>            
-          <button class="btn btn-success .navbar-right"
-            ng-click="closeTask(task)">Close</button>
-          <button class="btn btn-danger .navbar-right" 
-            ng-click="deleteTask(task)"><i class="fa fa-trash-o fa-lg"></i> Delete</button>
+          <i ng-show="isRunning(task)" ng-click="stopTask(task)" class="ibutton fa fa-stop fa-lg ired"></i>
+          <i ng-hide="isRunning(task)" ng-click="startTask(task)" class="ibutton fa fa-play fa-lg igreen"></i>            
+          <i ng-click="closeTask(task)" class="ibutton igreen fa fa-check fa-lg"></i>            
+          <i ng-click="deleteTask(task)" class="ibutton ired fa fa-trash-o fa-lg"></i>
         </div>
-        <div class="col-md-1"><span class="totalTime">{{task.totalTime | toHMS }}</span></div>
+        <div class="col-md-1">
+          <span class="totalTime">{{task.totalTime | toHMS }}</span>
+          <span ng-show="isRunning(task)">Session: {{ (currentTime - task.startTime)/1000.0 | toHMS }}</span>
+        </div>
       </div>
 
     </li>

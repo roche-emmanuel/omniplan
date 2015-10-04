@@ -59,6 +59,16 @@ function($stateProvider, $urlRouterProvider) {
         }]
       }
     })
+    .state('activity', {
+      url: '/activity',
+      templateUrl: '/partials/activity.html',
+      controller: 'ActivityCtrl',
+      // resolve: {
+      //   post: ['$stateParams', 'tags', function($stateParams, tags) {
+      //     return tags.getAll();
+      //   }]
+      // }
+    })
     .state('login', {
       url: '/login',
       templateUrl: '/partials/login.html',

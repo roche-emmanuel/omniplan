@@ -46,3 +46,19 @@ a {
 	border-radius: 4px;
 	background-color: #aaa;
 }
+
+.taskline:hover {
+	background-color: #fafafa;
+}
+
+.ibutton {
+	cursor: pointer;
+}
+
+.ired:hover {
+	color: #b00;
+}
+
+.igreen:hover {
+	color: #0b0;
+}
