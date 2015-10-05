@@ -17,18 +17,22 @@ angular.module('TaskFactory', [])
     }
   };
 
+  var loadTaskContent = function(task) {
+    task.startTime = Date.parse(task.startTime);
+    (function(task) {
+      $http.get('/tasks/'+task._id+'/tags',{
+        headers: {Authorization: 'Bearer '+auth.getToken()}
+      }).success(function(data){
+        angular.copy(data, task.tags);
+        // console.log("Tags list for task "+task.title+": "+ JSON.stringify(task.tags));
+      });
+    }(task));
+  };
+
   var populateTask = function(array) {
     for(var i = 0; i < array.length; i++) {
       var task = array[i];
-      task.startTime = Date.parse(task.startTime);
-      (function(task) {
-        $http.get('/tasks/'+task._id+'/tags',{
-          headers: {Authorization: 'Bearer '+auth.getToken()}
-        }).success(function(data){
-          angular.copy(data, task.tags);
-          // console.log("Tags list for task "+task.title+": "+ JSON.stringify(task.tags));
-        });
-      }(task));
+      loadTaskContent(task);
      }
   };
 
@@ -62,6 +66,8 @@ angular.module('TaskFactory', [])
       // We retrieved the selected task, so we can populate the table:
       console.debug("Retrieving task "+id+" from server.");
       angular.copy(data,task);
+
+      loadTaskContent(task);
     });
 
     // console.error("Could not retrieve task "+id+" from cached list: "+JSON.stringify(o.tasks));

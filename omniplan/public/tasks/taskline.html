@@ -1,0 +1,34 @@
+<div class="row" ng-mouseenter="isActive=true" ng-mouseleave="isActive=false; isAddingTag=false">
+  <div class="col-md-10">
+    <h4 class=>{{task.title}}</h4>
+    <ul class="list-inline">
+      <li ng-repeat="tag in task.tags | orderBy:'+name'">
+        <span class="btn btn-xs" ng-style="{ backgroundColor: '{{tag.bgColor}}', color: '{{tag.fgColor}}' }"
+          ng-click="removeTag(task,tag.name);">
+          {{tag.name}} <i class="fa fa-times fa-fw fa-inverse"></i></span>
+      </li>
+      <li>
+        <div class="btn btn-success btn-xs" ng-show="isActive && !isAddingTag" ng-click="isAddingTag = true">
+          <i class="fa fa-plus fa-fw fa-inverse"></i></div>
+        <div ng-show="isAddingTag">
+          <div class="input-group input-group-sm" style="width:200px;">
+            <span class="input-group-addon" id="tag-addon">#</span>
+            <input type="text" class="form-control" placeholder="Tag name" aria-describedby="tag-addon"
+              ng-model="tagName" ng-enter="isAddingTag=false; addTag(task,tagName);">
+          </div>
+        </div>
+      </li>
+    </ul>
+    <div>{{task.user}}{{task.description=="" ? " - No description" : " - "+task.description}}</div>
+  </div>
+  <div class="col-md-1">
+    <i ng-show="isRunning(task)" ng-click="stopTask(task)" class="ibutton fa fa-stop fa-lg ired"></i>
+    <i ng-hide="isRunning(task)" ng-click="startTask(task)" class="ibutton fa fa-play fa-lg igreen"></i>            
+    <i ng-click="closeTask(task)" class="ibutton igreen fa fa-check fa-lg"></i>            
+    <i ng-click="deleteTask(task)" class="ibutton ired fa fa-trash-o fa-lg"></i>
+  </div>
+  <div class="col-md-1">
+    <span class="totalTime">{{task.totalTime | toHMS }}</span>
+    <span ng-show="isRunning(task)">Session: {{ (currentTime - task.startTime)/1000.0 | toHMS }}</span>
+  </div>
+</div>

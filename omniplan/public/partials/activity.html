@@ -10,7 +10,7 @@
   <div ng-repeat="day in days">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">{{day.caption}}</h3>
+        <h3 class="panel-title"><i ng-class="{ 'fa fa-toggle-on': day.groubByTask, 'fa fa-toggle-off': !day.groubByTask }"></i> {{day.caption}}</h3>
       </div>
       <ul class="list-group" ng-hide="day.groupByTask">
         <li ng-repeat="session in day.sessions" class="list-group-item sessionline" ng-mouseenter="currentSession=$index" ng-mouseleave="currentSession=-1">
@@ -19,7 +19,8 @@
       </ul>
       <ul class="list-group" ng-show="day.groupByTask">
         <li ng-repeat="tdesc in day.tasks" class="list-group-item taskline" ng-mouseenter="currentTask=$index" ng-mouseleave="currentTask=-1">
-          {{tdesc.task.title}}
+          <div nv-task-line op-task="tdesc.task"></div>
+          <!-- {{tdesc.task.title}} -->
         </li>
       </ul>
    
