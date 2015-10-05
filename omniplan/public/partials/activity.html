@@ -10,7 +10,7 @@
   <div ng-repeat="day in days">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title"><i ng-class="{ 'fa fa-toggle-on': day.groubByTask, 'fa fa-toggle-off': !day.groubByTask }"></i> {{day.caption}}</h3>
+        <h3 class="panel-title"><i ng-class="{ 'ibutton fa fa-toggle-on': day.groupByTask, 'ibutton fa fa-toggle-off': !day.groupByTask }" ng-click="day.groupByTask = !day.groupByTask" data-toggle="tooltip" data-placement="bottom" title="Toggle group by task {{day.groupByTask ? 'off' : 'on'}}"></i> {{day.caption}}</h3>
       </div>
       <ul class="list-group" ng-hide="day.groupByTask">
         <li ng-repeat="session in day.sessions" class="list-group-item sessionline" ng-mouseenter="currentSession=$index" ng-mouseleave="currentSession=-1">
