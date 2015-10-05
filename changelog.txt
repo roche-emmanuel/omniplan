@@ -57,3 +57,4 @@
 10/04/15-21:14:53: Working on issue #17: Working initial implementation of activity page.
 10/05/15-12:57:08: Working on issue #17: Adding initial implementation for task line directive.
 10/05/15-15:48:50: Working on issue #17: added working behavior to toggle groupByTask on/off per day on activity page.
+10/05/15-21:40:26: Working on issue #16: aligning total time text on the right.

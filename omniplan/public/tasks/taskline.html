@@ -1,4 +1,4 @@
-<div class="row" ng-mouseenter="isActive=true" ng-mouseleave="isActive=false; isAddingTag=false">
+<div class="row no-gutters" ng-mouseenter="isActive=true" ng-mouseleave="isActive=false; isAddingTag=false">
   <div class="col-md-10">
     <h4 class=>{{task.title}}</h4>
     <ul class="list-inline">
@@ -22,12 +22,12 @@
     <div>{{task.user}}{{task.description=="" ? " - No description" : " - "+task.description}}</div>
   </div>
   <div class="col-md-1">
-    <i ng-show="isRunning(task)" ng-click="stopTask(task)" class="ibutton fa fa-stop fa-lg ired"></i>
-    <i ng-hide="isRunning(task)" ng-click="startTask(task)" class="ibutton fa fa-play fa-lg igreen"></i>            
-    <i ng-click="closeTask(task)" class="ibutton igreen fa fa-check fa-lg"></i>            
-    <i ng-click="deleteTask(task)" class="ibutton ired fa fa-trash-o fa-lg"></i>
+    <i ng-show="isRunning(task)" ng-click="stopTask(task)" class="ibutton fa fa-stop fa-lg ired" style="padding-right: 10px;"></i>
+    <i ng-hide="isRunning(task)" ng-click="startTask(task)" class="ibutton fa fa-play fa-lg igreen" style="padding-right: 10px;"></i>            
+    <i ng-click="closeTask(task)" class="ibutton igreen fa fa-check fa-lg" style="padding-right: 10px;"></i>            
+    <i ng-click="deleteTask(task)" class="ibutton ired fa fa-trash-o fa-lg" style="padding-right: 10px;"></i>
   </div>
-  <div class="col-md-1">
+  <div class="col-md-1" style="text-align: right;">
     <span class="totalTime">{{task.totalTime | toHMS }}</span>
     <span ng-show="isRunning(task)">Session: {{ (currentTime - task.startTime)/1000.0 | toHMS }}</span>
   </div>
