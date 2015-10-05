@@ -64,9 +64,12 @@ function($stateProvider, $urlRouterProvider) {
       templateUrl: '/partials/activity.html',
       controller: 'ActivityCtrl',
       resolve: {
-        needed: ['$stateParams', 'activity', function($stateParams, activity) {
+        activityPromise: ['$stateParams', 'activity', function($stateParams, activity) {
           console.debug("Performing resolve request...");
           return activity.getInitial();
+        }],
+        tagsPromise: ['tags', function(tags){
+          return tags.getAll();
         }]
       }
     })
