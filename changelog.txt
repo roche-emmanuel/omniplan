@@ -59,3 +59,4 @@
 10/05/15-15:48:50: Working on issue #17: added working behavior to toggle groupByTask on/off per day on activity page.
 10/05/15-21:40:26: Working on issue #16: aligning total time text on the right.
 10/05/15-21:42:23: Working on issue #16: requesting tags as promise for activity page display.
+10/05/15-23:07:24: Working on issue #16: Adding initial support for dropdown menus.
