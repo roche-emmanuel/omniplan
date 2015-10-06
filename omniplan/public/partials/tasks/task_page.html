@@ -1,0 +1,10 @@
+<div ng-hide="isLoggedIn()">
+  <h3>Please <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> to access the tasks.</h3>
+</div>
+
+<div ng-show="isLoggedIn()">
+  <div nv-task-line op-task="task"></div>
+  <h2 ng-show="task.description">Description</h2>
+  <div marked="task.description"></div>
+  </div>
+</div>

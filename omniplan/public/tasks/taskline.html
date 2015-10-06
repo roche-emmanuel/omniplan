@@ -23,7 +23,7 @@
             <li><a href="#" ng-click="addNewTag()">Add tag</a></li>
         </ul>
       </span>
-       {{task.title}}
+      <a ui-sref="task({id: task._id })">{{task.title}}</a>
     </h4>
 
     <ul class="list-inline">
@@ -33,7 +33,7 @@
           {{tag.name}} <i class="fa fa-times fa-fw fa-inverse"></i></span>
       </li>
     </ul>
-    <div>{{task.user}}{{task.description=="" ? " - No description" : " - "+task.description}}</div>
+<!--     <div>{{task.user}}{{task.description=="" ? " - No description" : " - "+task.description}}</div> -->
   </div>
   <div class="col-md-1">
     <i ng-show="isRunning(task)" ng-click="stopTask(task)" class="ibutton fa fa-stop fa-lg ired" style="padding-right: 10px;"></i>

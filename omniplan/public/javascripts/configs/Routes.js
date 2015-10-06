@@ -29,6 +29,16 @@ function($stateProvider, $urlRouterProvider) {
         }]
       }
     })
+    .state('task', {
+      url: '/task/:id',
+      templateUrl: '/partials/tasks/task_page.html',
+      controller: 'TaskPageCtrl',
+      resolve: {
+        taskId: ['$stateParams', function($stateParams){
+          return $stateParams.id;
+        }],
+      }
+    })
     .state('done', {
       url: '/done',
       templateUrl: '/partials/done.html',
