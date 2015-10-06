@@ -1,7 +1,7 @@
 <div class="row no-gutters" ng-mouseenter="isActive=true" ng-mouseleave="isActive=false; isAddingTag=false">
   <div class="col-md-10">
 
-    <div class="btn-group" dropdown>
+<!--     <div class="btn-group" dropdown>
       <button id="single-button" type="button" class="btn btn-primary" dropdown-toggle ng-disabled="disabled">
         Button dropdown <span class="caret"></span>
       </button>
@@ -12,9 +12,20 @@
         <li class="divider"></li>
         <li role="menuitem"><a href="#">Separated link</a></li>
       </ul>
-    </div>
+    </div> -->
 
-    <h4 class=><i class="fa fa-cog"></i> {{task.title}}</h4>
+    <h4 class=>
+      <span class="vcenter btn-group" dropdown>
+        <button id="dropmenu_{{task._id}}" class="btn btn-default btn-sm btn-flat" dropdown-toggle ng-mouseenter="isSettingsActive=true" ng-mouseleave="isSettingsActive=false">
+            <i class="fa fa-cog fa-lg"></i> <span class="caret" ng-style="{'visibility': isSettingsActive ? 'visible' : 'hidden' }"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropmenu_{{task._id}}">
+            <li><a href="#">...my menus...</a></li>
+        </ul>
+      </span>
+       {{task.title}}
+    </h4>
+
     <ul class="list-inline">
       <li ng-repeat="tag in task.tags | orderBy:'+name'">
         <span class="btn btn-xs" ng-style="{ backgroundColor: '{{tag.bgColor}}', color: '{{tag.fgColor}}' }"

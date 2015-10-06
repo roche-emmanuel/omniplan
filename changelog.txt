@@ -60,3 +60,6 @@
 10/05/15-21:40:26: Working on issue #16: aligning total time text on the right.
 10/05/15-21:42:23: Working on issue #16: requesting tags as promise for activity page display.
 10/05/15-23:07:24: Working on issue #16: Adding initial support for dropdown menus.
+10/06/15-14:35:40: Working on issue #16: added a setting button on the task lisn
+
+ne.
