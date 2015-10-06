@@ -32,16 +32,6 @@
           ng-click="removeTag(task,tag.name);">
           {{tag.name}} <i class="fa fa-times fa-fw fa-inverse"></i></span>
       </li>
-      <!-- <li> -->
-<!--         <div class="btn btn-success btn-xs" ng-show="isActive && !isAddingTag" ng-click="addNewTag()">
-          <i class="fa fa-plus fa-fw fa-inverse"></i>
-        </div> -->
-<!--         <div ng-show="isAddingTag" class="vcenter input-group input-group-sm" style="width:200px;">
-          <span class="input-group-addon" id="tag-addon">#</span>
-          <input type="text" class="form-control input-xs" placeholder="Tag name" aria-describedby="tag-addon"
-            ng-model="tagName" ng-enter="isAddingTag=false; addTag(task,tagName);">
-        </div> -->
-      <!-- </li> -->
     </ul>
     <div>{{task.user}}{{task.description=="" ? " - No description" : " - "+task.description}}</div>
   </div>

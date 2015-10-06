@@ -174,7 +174,7 @@ angular.module('TaskFactory', [])
 
   o.hasTag = function(task, tag) {
     for(var i=0;i<task.tags.length;++i) {
-      if(task.tags[i]._id == tag.id) {
+      if(task.tags[i]._id == tag._id) {
         return true;
       }
     }
