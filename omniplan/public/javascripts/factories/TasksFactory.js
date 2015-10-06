@@ -172,6 +172,15 @@ angular.module('TaskFactory', [])
     });        
   };
 
+  o.hasTag = function(task, tag) {
+    for(var i=0;i<task.tags.length;++i) {
+      if(task.tags[i]._id == tag.id) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   o.removeTag = function(task, tag) {
     return $http.delete('/tasks/' + task._id + '/tag/' + tag._id, {
       headers: {Authorization: 'Bearer '+auth.getToken()}

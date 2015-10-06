@@ -11,24 +11,12 @@ angular.module('TaskLine', [])
     replace: true,
     templateUrl: 'tasks/taskline.html',
     controller: 'TaskLineCtrl',
-    // controllerAs: 'ctrl',
-    // link: function(scope, elem, attrs) {
-    //   // elem.bind('click', function() {
-    //   //   elem.css('background-color', 'white');
-    //   //   scope.$apply(function() {
-    //   //     scope.color = "white";
-    //   //   });
-    //   // });
-    //   // elem.bind('mouseover', function() {
-    //   //   elem.css('cursor', 'pointer');
-    //   // });
-    // }
   };
 })
 
 .controller('TaskLineCtrl', [
-'$scope','tasks','auth','$interval','tags','utils',
-function($scope,tasks,auth,$interval,tags,utils){
+'$scope','tasks','auth','$interval','tags','utils','$modal','$log',
+function($scope,tasks,auth,$interval,tags,utils,$modal,$log){
   $scope.isLoggedIn = auth.isLoggedIn;
   $scope.currentTime = Date.now();
 
@@ -92,12 +80,64 @@ function($scope,tasks,auth,$interval,tags,utils){
     // tags factory:
     var tag = utils.findByKey(tags.tags,'name',tagName);
     if(!tag) {
-      console.warn("Undefined tag with name "+tagName)
+      console.warn("Undefined tag with name "+tagName);
     }
     else {
       tasks.removeTag(task,tag);
     }
   };
 
+  // Method used to check if the current task already has a given tag:
+  $scope.hasTag = function(tagName) {
+    var tag = utils.findByKey(tags.tags,'name',tagName);
+    if(!tag) {
+      console.warn("Undefined tag with name "+tagName);
+      return false;
+    }
+    else {
+      return tasks.hasTag($scope.task,tag);
+    }
+  };
+
+  // Method called to add a new tag to this task.
+  $scope.addNewTag = function() {
+    var modalInstance = $modal.open({
+      animation: true,
+      templateUrl: 'partials/tags/addtag_modal.html',
+      controller: 'AddTagModalCtrl',
+      size: 'sm',
+      resolve: {
+        tags: function () {
+          return tags.getAll();
+        }
+      }
+    });
+
+    modalInstance.result.then(function (tagName) {
+
+      if(tagName != '' && !$scope.hasTag(tagName)) {
+        $log.debug("Should add the tag with name: "+tagName);
+        $scope.addTag($scope.task,tagName);
+      }
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+
+  };
+
+}])
+
+.controller('AddTagModalCtrl', [
+'$scope','$modalInstance','tags',
+function ($scope, $modalInstance, tags) {
+
+  $scope.tags = tags;
+
+  $scope.ok = function () {
+    $modalInstance.close($scope.tagName || '');
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
 }]);
-;

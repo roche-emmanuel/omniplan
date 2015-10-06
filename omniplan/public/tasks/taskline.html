@@ -20,7 +20,7 @@
             <i class="fa fa-cog fa-lg"></i> <span class="caret" ng-style="{'visibility': isSettingsActive ? 'visible' : 'hidden' }"></span>
         </button>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropmenu_{{task._id}}">
-            <li><a href="#">...my menus...</a></li>
+            <li><a href="#" ng-click="addNewTag()">Add tag</a></li>
         </ul>
       </span>
        {{task.title}}
@@ -32,17 +32,16 @@
           ng-click="removeTag(task,tag.name);">
           {{tag.name}} <i class="fa fa-times fa-fw fa-inverse"></i></span>
       </li>
-      <li>
-        <div class="btn btn-success btn-xs" ng-show="isActive && !isAddingTag" ng-click="isAddingTag = true">
-          <i class="fa fa-plus fa-fw fa-inverse"></i></div>
-        <div ng-show="isAddingTag">
-          <div class="input-group input-group-sm" style="width:200px;">
-            <span class="input-group-addon" id="tag-addon">#</span>
-            <input type="text" class="form-control" placeholder="Tag name" aria-describedby="tag-addon"
-              ng-model="tagName" ng-enter="isAddingTag=false; addTag(task,tagName);">
-          </div>
-        </div>
-      </li>
+      <!-- <li> -->
+<!--         <div class="btn btn-success btn-xs" ng-show="isActive && !isAddingTag" ng-click="addNewTag()">
+          <i class="fa fa-plus fa-fw fa-inverse"></i>
+        </div> -->
+<!--         <div ng-show="isAddingTag" class="vcenter input-group input-group-sm" style="width:200px;">
+          <span class="input-group-addon" id="tag-addon">#</span>
+          <input type="text" class="form-control input-xs" placeholder="Tag name" aria-describedby="tag-addon"
+            ng-model="tagName" ng-enter="isAddingTag=false; addTag(task,tagName);">
+        </div> -->
+      <!-- </li> -->
     </ul>
     <div>{{task.user}}{{task.description=="" ? " - No description" : " - "+task.description}}</div>
   </div>

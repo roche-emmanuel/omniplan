@@ -63,3 +63,4 @@
 10/06/15-14:35:40: Working on issue #16: added a setting button on the task lisn
 
 ne.
+10/06/15-15:57:50: Working on issue #15: added support for modal window to add a tag to a task.
