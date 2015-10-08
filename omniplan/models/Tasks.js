@@ -11,6 +11,7 @@ var TaskSessionSchema = new mongoose.Schema({
 mongoose.model('TaskSession', TaskSessionSchema);
 
 var TaskSession = mongoose.model('TaskSession');
+var Note = mongoose.model('Note');
 
 var TaskSchema = new mongoose.Schema({
   // user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -23,6 +24,7 @@ var TaskSchema = new mongoose.Schema({
   multipler: {type: Number, default: 1},
   totalTime: {type: Number, default: 0},
   sessions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TaskSession' }],
+  notes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Note' }],
   tags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }],
 });
 

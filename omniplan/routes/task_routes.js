@@ -9,10 +9,7 @@ var mongoose = require('mongoose');
 var Task = mongoose.model('Task');
 var Tag = mongoose.model('Tag');
 var User = mongoose.model('User');
-
-// var Post = mongoose.model('Post');
-// var Comment = mongoose.model('Comment');
-// var User = mongoose.model('User');
+var Note = mongoose.model('Note');
 
 var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
 
@@ -143,6 +140,37 @@ router.get('/:task/tags', auth, function(req, res, next) {
   });
 });
 
+router.get('/:task/notes', auth, function(req, res, next) {
+  console.log("Should populate the notes for the task "+ req.task.title);
+  
+  req.task.populate('notes', function(err, task) {
+    if (err) { return next(err); }
+
+    res.json(task.notes);
+  });
+});
+
+router.put('/:task/note', auth, function(req, res, next) {
+  console.log("Should add a note to task "+ req.task.title);
+  var note = new Note(req.body);
+  note.author = req.payload.username;
+  note.task = req.task;
+
+  note.assignID(function(err,note) {
+
+    note.save(function(err, note){
+
+      console.log("Adding note with id="+ note.id);
+      req.task.notes.push(note);
+
+      req.task.save(function(err, task) {
+        if(err){ return next(err); }
+
+        res.json(note);
+      });
+    });
+  });
+});
 
 router.put('/:task/tag/:tag', auth, function(req, res, next) {
   console.log("Should add the tag "+req.tag.name+" to the task "+ req.task.title);

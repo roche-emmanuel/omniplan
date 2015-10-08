@@ -10,4 +10,9 @@ function($log,$scope,tasks,auth,taskId){
   $log.debug("Retrieving task with id="+taskId);
 
   tasks.retrieveTask($scope.task);
+
+  // Method used to add some note content to the current task.
+  $scope.addNote = function(content) {
+  	tasks.addNote($scope.task,content);
+  };
 }]);

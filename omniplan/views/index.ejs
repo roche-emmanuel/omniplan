@@ -4,9 +4,13 @@
     <!-- <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/stylesheets/style.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/styles/default.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/jquery.mCustomScrollbar.min.css">
+    <link href="/stylesheets/style.css" rel="stylesheet">
+
+
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
     <!-- // <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
     <!-- // <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js"></script> -->
@@ -21,7 +25,7 @@
     <script src="/javascripts/factories/TasksFactory.js"></script>
     <script src="/javascripts/factories/TagsFactory.js"></script>
     <script src="/javascripts/factories/Utils.js"></script>
-    <script src="/javascripts/directives/Enter.js"></script>
+    <script src="/javascripts/directives/Utilities.js"></script>
     <script src="/javascripts/tasks/TaskLine.js"></script>
     <script src="/javascripts/tasks/TaskPage.js"></script>
     <script src="/javascripts/controllers/ActivityController.js"></script>
@@ -32,14 +36,15 @@
     <script src="/javascripts/external/angular-sprintf.min.js"></script>
     <script src="/javascripts/external/marked.min.js"></script>
     <script src="/javascripts/external/angular-marked.min.js"></script>
+    <script src="/javascripts/external/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="/javascripts/angularApp.js"></script>
-    <script src="https://rawgit.com/RubaXa/Sortable/master/Sortable.js"></script>
+    <!-- // <script src="https://rawgit.com/RubaXa/Sortable/master/Sortable.js"></script> -->
 
 
-    <style> .glyphicon-thumbs-up { cursor:pointer } </style>
+    <!-- <style> .glyphicon-thumbs-up { cursor:pointer } </style>-->
     <!-- style> .fa-times { cursor:pointer } </style-->
   </head>
-  <body ng-app="omniPlan">
+  <body ng-app="omniPlan" class="container-fluid">
     <div ng-include="'partials/nav.html'"></div>
 
     <div class="row">

@@ -9,6 +9,8 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 require('./models/Posts');
 require('./models/Comments');
+require('./models/Counter');
+require('./models/Notes');
 require('./models/Users');
 require('./models/Tasks');
 require('./models/Tags');

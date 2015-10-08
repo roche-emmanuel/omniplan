@@ -3,8 +3,26 @@
 </div>
 
 <div ng-show="isLoggedIn()">
-  <div nv-task-line op-task="task"></div>
-  <h2 ng-show="task.description">Description</h2>
-  <div marked="task.description"></div>
+  <div class="tableRow">
+  	<div nv-task-line op-task="task"></div>
+	  <h2 ng-show="task.description">Description</h2>
+	  <div marked="task.description"></div>
   </div>
+
+  <div scrollable fill-height>
+	  <!-- Display the list of existing notes -->
+	  <ul class="list-group">
+		  <li ng-repeat="note in task.notes" class="list-group-item">
+		  	<div marked="note.content"></div>
+			</li>
+		</ul>
+
+	  <!-- Display the area to add a note -->
+	  <div class="notebg">
+	  	<textarea class="notearea" ng-model="content"></textarea>
+	  	<div>
+	      <button class="btn btn-primary" ng-click="addNote(content)">Add note</button>
+	  	</div>
+	  </div>
+	</div>
 </div>

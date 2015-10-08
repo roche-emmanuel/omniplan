@@ -1,5 +1,5 @@
 var app = angular.module('omniPlan', ['ui.router','ui.bootstrap','opRoutes','opAuthFactory','TaskFactory','TaskController',
-  'TagController','Filters','EnterDirective','ActivityController',
+  'TagController','Filters','Utilities','ActivityController',
   'TaskLine','TaskPage','hc.marked','opMarked']);
 
 app.factory('posts', ['$http','auth',function($http,auth){

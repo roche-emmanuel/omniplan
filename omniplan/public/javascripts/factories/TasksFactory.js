@@ -27,6 +27,15 @@ angular.module('TaskFactory', [])
         // console.log("Tags list for task "+task.title+": "+ JSON.stringify(task.tags));
       });
     }(task));
+
+    (function(task) {
+      $http.get('/tasks/'+task._id+'/notes',{
+        headers: {Authorization: 'Bearer '+auth.getToken()}
+      }).success(function(data){
+        angular.copy(data, task.notes);
+        // console.log("Tags list for task "+task.title+": "+ JSON.stringify(task.tags));
+      });
+    }(task));
   };
 
   var populateTask = function(array) {
@@ -173,6 +182,28 @@ angular.module('TaskFactory', [])
       task.totalTime = data.totalTime;
       console.log("Currenting running state: "+ task.running);
     });    
+  };
+
+  o.addNote = function(task, content) {
+    if (!content || content=='') {
+      // there is nothing to add in that case:
+      return;
+    };
+
+    // Prepare a note object:
+    var note = {
+      content: content,
+      time: Date.now(),
+    };
+
+    return $http.put('/tasks/' + task._id + '/note/', note, {
+      headers: {Authorization: 'Bearer '+auth.getToken()}
+    }).success(function(data){
+      angular.copy(data,note);
+
+      // The data we receive should be the note object itself.
+      task.notes.push(note);
+    });        
   };
 
   o.addTag = function(task, tag) {
